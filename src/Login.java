@@ -16,17 +16,17 @@ import java.sql.*;
  *
  * @author talhayilmaz
  */
-public class Giris extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     private static Connection conn;
     PreparedStatement ps;
 
-    public Giris() {
+    public Login() {
         initComponents();
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/SporM?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "password");
         } catch (SQLException ex) {
-            Logger.getLogger(Giris.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -41,14 +41,14 @@ public class Giris extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         label2 = new java.awt.Label();
-        uyarikad = new javax.swing.JLabel();
-        uyaripassword = new javax.swing.JLabel();
-        password = new javax.swing.JPasswordField();
-        şifreunut = new javax.swing.JButton();
+        usernameWarning = new javax.swing.JLabel();
+        passwordWarning = new javax.swing.JLabel();
+        passwordField = new javax.swing.JPasswordField();
+        forgotPasswordButton = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
-        kad = new javax.swing.JTextField();
-        giris = new javax.swing.JButton();
-        kayitOl = new javax.swing.JButton();
+        usernameField = new javax.swing.JTextField();
+        loginButton = new javax.swing.JButton();
+        registerButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -58,36 +58,36 @@ public class Giris extends javax.swing.JFrame {
         label2.setBackground(new java.awt.Color(142, 142, 142));
         label2.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
         label2.setForeground(new java.awt.Color(200, 232, 101));
-        label2.setText("  Giriş");
+        label2.setText("  Login");
 
-        uyarikad.setText(".");
+        usernameWarning.setText(".");
 
-        uyaripassword.setText(".");
+        passwordWarning.setText(".");
 
-        şifreunut.setText("Şifremi Unuttum");
-        şifreunut.addActionListener(new java.awt.event.ActionListener() {
+        forgotPasswordButton.setText("Forgot Password");
+        forgotPasswordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                şifreunutActionPerformed(evt);
+                forgotPasswordButtonActionPerformed(evt);
             }
         });
 
         jRadioButton1.setText("Robot Değilim");
 
-        giris.setText("Giriş");
-        giris.addActionListener(new java.awt.event.ActionListener() {
+        loginButton.setText("Login");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                girisActionPerformed(evt);
+                loginButtonActionPerformed(evt);
             }
         });
 
-        kayitOl.setText("Kayıt OL");
-        kayitOl.addActionListener(new java.awt.event.ActionListener() {
+        registerButton.setText("Register");
+        registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kayitOlActionPerformed(evt);
+                registerButtonActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Kullanıcı Adı:");
+        jLabel1.setText("Username:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,17 +104,17 @@ public class Giris extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(kayitOl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(registerButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(giris, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(kad, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(loginButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(usernameField, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(password, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(şifreunut, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(forgotPasswordButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(28, 28, 28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(uyaripassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(uyarikad, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))))
+                                    .addComponent(passwordWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(usernameWarning, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))))
                         .addGap(12, 12, 12)))
                 .addContainerGap())
         );
@@ -127,97 +127,98 @@ public class Giris extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(kad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(uyarikad))
+                    .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usernameWarning))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(uyaripassword)
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordWarning)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(giris)
+                .addComponent(loginButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(kayitOl)
+                .addComponent(registerButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jRadioButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(şifreunut)
+                .addComponent(forgotPasswordButton)
                 .addGap(71, 71, 71))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void şifreunutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_şifreunutActionPerformed
-        SifreDegistir sd = new SifreDegistir();
+    private void forgotPasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgotPasswordButtonActionPerformed
+        PasswordChange passwordChange = new PasswordChange();
 
         this.setVisible(false);
-        sd.setVisible(true);
-    }//GEN-LAST:event_şifreunutActionPerformed
+        passwordChange.setVisible(true);
+    }//GEN-LAST:event_forgotPasswordButtonActionPerformed
 
-    private void girisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_girisActionPerformed
-        AnaSayfaa as = new AnaSayfaa();
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        Main main = new Main();
 
-        String ad = kad.getText();
-        String sifre = password.getText();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
 
-        dogrulama(ad, sifre);
+        validate(username, password);
         try {
 
             ps = conn.prepareStatement("SELECT * FROM KAYIT WHERE Ad = ? AND Parola = ?");
-            ps.setString(1, ad);
-            ps.setString(2, sifre);
+            ps.setString(1, username);
+            ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 this.setVisible(false);
-                as.setVisible(true);
+                main.setVisible(true);
 
             } else if (!rs.next()) {
-                JOptionPane.showMessageDialog(null, "Kullanıcı adı veya parola hatalı", "Hata", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Incorrect username or password", "Hata", JOptionPane.ERROR_MESSAGE);
 
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            Logger.getLogger(Giris.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
 
         }
-    }//GEN-LAST:event_girisActionPerformed
+    }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void kayitOlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kayitOlActionPerformed
-        Kayıt kayıt = new Kayıt();
-        kayıt.setVisible(true);
+    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
+        Register register = new Register();
+        register.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_kayitOlActionPerformed
+    }//GEN-LAST:event_registerButtonActionPerformed
 
-    public boolean dogrulama(String ad, String sifre) {
-        boolean sifree = true;
+    public boolean validate(String username, String password) {
+        boolean isValid = true;
 
-        if (ad.trim().isEmpty()) {
-            uyarikad.setText("Bu alan boş olamaz");
-            sifree = false;
+        if (username.trim().isEmpty()) {
+            usernameWarning.setText("This field cannot be empty");
+
+            isValid = false;
         } else {
-            uyarikad.setText(" ");
+            usernameWarning.setText(" ");
         }
 
-        if (sifre.length() < 8) {
-            uyaripassword.setText("Şifre en az 8 karakterden oluşmalıdır.");
-            sifree = false;
-        } else if (!sifre.matches(".*[A-Z].*")) {
-            uyaripassword.setText("Şifre en az bir büyük harf içermelidir.");
-            sifree = false;
-        } else if (!sifre.matches(".*[a-z].*")) {
-            uyaripassword.setText("Şifre en az bir küçük harf içermelidir.");
-            sifree = false;
-        } else if (!sifre.matches(".*\\d.*")) {
-            uyaripassword.setText("Şifre en az bir rakam içermelidir.");
-            sifree = false;
+        if (password.length() < 8) {
+            passwordWarning.setText("Password must be at least 8 characters long.");
+            isValid = false;
+        } else if (!password.matches(".*[A-Z].*")) {
+            passwordWarning.setText("Password must contain at least one uppercase letter.");
+            isValid = false;
+        } else if (!password.matches(".*[a-z].*")) {
+            passwordWarning.setText("Password must contain at least one lowercase letter.");
+            isValid = false;
+        } else if (!password.matches(".*\\d.*")) {
+            passwordWarning.setText("Password must contain at least one digit.");
+            isValid = false;
         } else {
-            uyaripassword.setText(" ");
+            passwordWarning.setText(" ");
         }
 
-        return sifree;
+        return isValid;
     }
 
     /**
@@ -237,35 +238,35 @@ public class Giris extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Giris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Giris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Giris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Giris.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Giris().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton giris;
+    private javax.swing.JButton forgotPasswordButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JTextField kad;
-    private javax.swing.JButton kayitOl;
     private java.awt.Label label2;
-    private javax.swing.JPasswordField password;
-    private javax.swing.JLabel uyarikad;
-    private javax.swing.JLabel uyaripassword;
-    private javax.swing.JButton şifreunut;
+    private javax.swing.JButton loginButton;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JLabel passwordWarning;
+    private javax.swing.JButton registerButton;
+    private javax.swing.JTextField usernameField;
+    private javax.swing.JLabel usernameWarning;
     // End of variables declaration//GEN-END:variables
 }

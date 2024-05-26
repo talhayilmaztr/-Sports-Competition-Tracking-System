@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
 class FetchData {
 
     Connection conn;
-    private String takım;
+    private String team;
     private JTable jtable;
     private JList jlist;
 
@@ -39,11 +39,11 @@ class FetchData {
     }
 
     public String getTakım() {
-        return takım;
+        return team;
     }
 
     public void setTakım(String takım) {
-        this.takım = takım;
+        this.team = takım;
     }
 
     public JTable getJtable() {
@@ -63,51 +63,49 @@ class FetchData {
             ResultSet rs = ps.executeQuery();
             model.setRowCount(0);
             while (rs.next()) {
-                String takımlar = rs.getString("TAKIMLAR");
-                String yer = rs.getString("YER");
-                String lig = rs.getString("LİG");
-                String tarih = rs.getString("TARİH");
-                String skor = rs.getString("SKOR");
-                model.addRow(new String[]{takımlar, yer, lig, tarih, skor});
+                String teams = rs.getString("TAKIMLAR");
+                String place = rs.getString("YER");
+                String league = rs.getString("LİG");
+                String date = rs.getString("TARİH");
+                String score = rs.getString("SKOR");
+                model.addRow(new String[]{teams, place, league, date, score});
 
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            Logger.getLogger(AnaSayfaa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void ligler(String sportName, JComboBox combo, JTable table, Connection conn) {
-        DefaultTableModel defaultModel = (DefaultTableModel) table.getModel();
-
+    public void loadLeagues(String sportName, JComboBox combo, Connection conn) {
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM " + sportName);
             ResultSet rs = ps.executeQuery();
             combo.removeAllItems();
             while (rs.next()) {
-                String lig = rs.getString("LİG");
+                String league = rs.getString("LİG");
 
-                boolean ligVar = false;
+                boolean leagueExists = false;
 
                 for (int i = 0; i < combo.getItemCount(); i++) {
-                    if (combo.getItemAt(i).equals(lig)) {
-                        ligVar = true;
+                    if (combo.getItemAt(i).equals(league)) {
+                        leagueExists = true;
                         break;
                     }
                 }
 
-                if (!ligVar) {
-                    combo.addItem(lig.toString());
+                if (!leagueExists) {
+                    combo.addItem(league.toString());
                 }
 
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            Logger.getLogger(AnaSayfaa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void ligler(String sportName, JList list, Connection conn) {
+    public void leagues(String sportName, JList list, Connection conn) {
         ListModel model = list.getModel();
         DefaultListModel<String> defaultModel = new DefaultListModel<>();
 
@@ -120,92 +118,92 @@ class FetchData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                String lig = rs.getString("LİG");
-                boolean ligVar = false;
+                String league = rs.getString("LİG");
+                boolean leagueExist = false;
 
                 for (int i = 0; i < defaultModel.getSize(); i++) {
-                    if (defaultModel.getElementAt(i).equals(lig)) {
-                        ligVar = true;
+                    if (defaultModel.getElementAt(i).equals(league)) {
+                        leagueExist = true;
                         break;
                     }
                 }
 
-                if (!ligVar) {
-                    defaultModel.addElement(lig);
+                if (!leagueExist) {
+                    defaultModel.addElement(league);
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            Logger.getLogger(AnaSayfaa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
 }
 
-public class AnaSayfaa extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame {
 
     FetchData data = new FetchData();
     private Connection conn;
     String path = "file";
 
-    public AnaSayfaa() {
+    public Main() {
         initComponents();
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/SporM?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "password");
         } catch (SQLException ex) {
-            Logger.getLogger(AnaSayfaa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        data.ligler("Futbol", jComboBox2, jTable5, conn);
-        data.ligler("Voleybol", jComboBox3, jTable6, conn);
-        data.ligler("Hentbol", jComboBox4, jTable7, conn);
-        data.ligler("Basketbol", jComboBox5, jTable8, conn);
+        data.loadLeagues("Football", jComboBox2, conn);
+        data.loadLeagues("Volleyball", jComboBox3,  conn);
+        data.loadLeagues("Handball", jComboBox4,  conn);
+        data.loadLeagues("Basketball", jComboBox5, conn);
 
         data.fetchDataForSport("Futbol", jTable5, conn);
-        data.fetchDataForSport("Basketbol", jTable8, conn);
-        data.fetchDataForSport("Hentbol", jTable7, conn);
-        data.fetchDataForSport("Voleybol", jTable6, conn);
+        data.fetchDataForSport("BAsketbo", jTable8, conn);
+        data.fetchDataForSport("Handball", jTable7, conn);
+        data.fetchDataForSport("Volleyball", jTable6, conn);
 
         JPopupMenu popupMenu = new JPopupMenu();
-        JMenuItem Dosya = new JMenuItem("Dosyaya Aktar");
-        JMenuItem Düzen = new JMenuItem("Düzenle");
-        JMenuItem Yenile = new JMenuItem("Yenile");
+        JMenuItem fileMenuItem = new JMenuItem("Export to File");
+        JMenuItem editMenuItem = new JMenuItem("Edit");
+        JMenuItem refreshMenuItem = new JMenuItem("Refresh");
 
-        popupMenu.add(Dosya);
-        popupMenu.add(Düzen);
-        popupMenu.add(Yenile);
+        popupMenu.add(fileMenuItem);
+        popupMenu.add(editMenuItem);
+        popupMenu.add(refreshMenuItem);
 
         jTable5.setComponentPopupMenu(popupMenu);
         jTable6.setComponentPopupMenu(popupMenu);
         jTable7.setComponentPopupMenu(popupMenu);
         jTable8.setComponentPopupMenu(popupMenu);
 
-        Dosya.addMouseListener(new MouseAdapter() {
+        fileMenuItem.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                String path = "/Users/talhayilmaz/Desktop/example.txt";
+                String path = "file_path";
                 if (jTable5.isShowing()) {
-                    dosyaYazdır(jTable5, path);
+                    printToFile(jTable5, path);
                 }
                 if (jTable6.isShowing()) {
-                    dosyaYazdır(jTable6, path);
+                    printToFile(jTable6, path);
                 }
                 if (jTable7.isShowing()) {
-                    dosyaYazdır(jTable7, path);
+                    printToFile(jTable7, path);
                 }
                 if (jTable8.isShowing()) {
-                    dosyaYazdır(jTable8, path);
+                    printToFile(jTable8, path);
                 }
 
             }
         });
 
-        Düzen.addMouseListener(new MouseAdapter() {
+        editMenuItem.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                MüsabakaAdminn m = new MüsabakaAdminn();
+                MatchAdmin m = new MatchAdmin();
                 m.setVisible(true);
-                AnaSayfaa.this.setVisible(false);
+                Main.this.setVisible(false);
             }
         });
     }
@@ -219,45 +217,45 @@ public class AnaSayfaa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sorgulaBasketbol = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
         sorgu = new javax.swing.JTextField();
-        sorgulafutbol = new javax.swing.JButton();
+        searchMatchF = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        yenileFutbol1 = new javax.swing.JButton();
+        refresh1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable6 = new javax.swing.JTable();
         vol = new javax.swing.JTextField();
-        sorgulaVoleybol = new javax.swing.JButton();
+        searchMatchV = new javax.swing.JButton();
         jComboBox3 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        yenileVoleybol = new javax.swing.JButton();
+        refresh2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable7 = new javax.swing.JTable();
         hent = new javax.swing.JTextField();
-        sorgulHenbol = new javax.swing.JButton();
+        searchMatchH = new javax.swing.JButton();
         jComboBox4 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        yenileHentbol = new javax.swing.JButton();
+        refresh3 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTable8 = new javax.swing.JTable();
         basket = new javax.swing.JTextField();
-        sorgulBasketbol = new javax.swing.JButton();
+        searchMatchB = new javax.swing.JButton();
         jComboBox5 = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
-        yennileBasketbol = new javax.swing.JButton();
+        filter = new javax.swing.JLabel();
+        refresh4 = new javax.swing.JButton();
         label1 = new java.awt.Label();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        seciliDosyayaAktar = new javax.swing.JMenuItem();
-        dosyadanAktar = new javax.swing.JMenuItem();
-        hepsiniAktar = new javax.swing.JMenuItem();
+        exportAll = new javax.swing.JMenuItem();
+        exportSelected = new javax.swing.JMenuItem();
+        importFromFile = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -270,9 +268,9 @@ public class AnaSayfaa extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        sorgulaBasketbol.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabbedPane.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                sorgulaBasketbolMouseClicked(evt);
+                tabbedPaneMouseClicked(evt);
             }
         });
 
@@ -286,10 +284,10 @@ public class AnaSayfaa extends javax.swing.JFrame {
         ));
         jScrollPane5.setViewportView(jTable5);
 
-        sorgulafutbol.setText("Müsabaka Ara");
-        sorgulafutbol.addActionListener(new java.awt.event.ActionListener() {
+        searchMatchF.setText("Search");
+        searchMatchF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sorgulafutbolActionPerformed(evt);
+                searchMatchFActionPerformed(evt);
             }
         });
 
@@ -302,10 +300,10 @@ public class AnaSayfaa extends javax.swing.JFrame {
 
         jLabel2.setText("Filtrele");
 
-        yenileFutbol1.setText("Yenile");
-        yenileFutbol1.addActionListener(new java.awt.event.ActionListener() {
+        refresh1.setText("Refresh");
+        refresh1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                yenileFutbol1ActionPerformed(evt);
+                refresh1ActionPerformed(evt);
             }
         });
 
@@ -319,15 +317,15 @@ public class AnaSayfaa extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(sorgu, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(sorgulafutbol)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                        .addComponent(searchMatchF)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(27, 27, 27)
                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))
                     .addComponent(jScrollPane5)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(yenileFutbol1)
+                        .addComponent(refresh1)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -336,17 +334,17 @@ public class AnaSayfaa extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sorgu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sorgulafutbol)
+                    .addComponent(searchMatchF)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(yenileFutbol1)
+                .addComponent(refresh1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(259, 259, 259))
         );
 
-        sorgulaBasketbol.addTab("Futbol", jPanel2);
+        tabbedPane.addTab("Futbol", jPanel2);
 
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -358,10 +356,10 @@ public class AnaSayfaa extends javax.swing.JFrame {
         ));
         jScrollPane6.setViewportView(jTable6);
 
-        sorgulaVoleybol.setText("Müsabaka Ara");
-        sorgulaVoleybol.addActionListener(new java.awt.event.ActionListener() {
+        searchMatchV.setText("Search");
+        searchMatchV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sorgulaVoleybolActionPerformed(evt);
+                searchMatchVActionPerformed(evt);
             }
         });
 
@@ -374,10 +372,10 @@ public class AnaSayfaa extends javax.swing.JFrame {
 
         jLabel3.setText("Filtrele");
 
-        yenileVoleybol.setText("Yenile");
-        yenileVoleybol.addActionListener(new java.awt.event.ActionListener() {
+        refresh2.setText("Refresh");
+        refresh2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                yenileVoleybolActionPerformed(evt);
+                refresh2ActionPerformed(evt);
             }
         });
 
@@ -391,14 +389,14 @@ public class AnaSayfaa extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(vol, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(sorgulaVoleybol)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                        .addComponent(searchMatchV)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addGap(27, 27, 27)
                         .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(yenileVoleybol)
+                        .addComponent(refresh2)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane6)))
         );
@@ -408,17 +406,17 @@ public class AnaSayfaa extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sorgulaVoleybol)
+                    .addComponent(searchMatchV)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(26, 26, 26)
-                .addComponent(yenileVoleybol)
+                .addComponent(refresh2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        sorgulaBasketbol.addTab("Voleybol", jPanel3);
+        tabbedPane.addTab("Voleybol", jPanel3);
 
         jTable7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -430,10 +428,10 @@ public class AnaSayfaa extends javax.swing.JFrame {
         ));
         jScrollPane7.setViewportView(jTable7);
 
-        sorgulHenbol.setText("Müsabaka Ara");
-        sorgulHenbol.addActionListener(new java.awt.event.ActionListener() {
+        searchMatchH.setText("Search");
+        searchMatchH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sorgulHenbolActionPerformed(evt);
+                searchMatchHActionPerformed(evt);
             }
         });
 
@@ -446,10 +444,10 @@ public class AnaSayfaa extends javax.swing.JFrame {
 
         jLabel4.setText("Filtrele");
 
-        yenileHentbol.setText("Yenile");
-        yenileHentbol.addActionListener(new java.awt.event.ActionListener() {
+        refresh3.setText("Refresh");
+        refresh3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                yenileHentbolActionPerformed(evt);
+                refresh3ActionPerformed(evt);
             }
         });
 
@@ -463,7 +461,7 @@ public class AnaSayfaa extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(hent, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(sorgulHenbol)
+                        .addComponent(searchMatchH)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(27, 27, 27)
@@ -473,7 +471,7 @@ public class AnaSayfaa extends javax.swing.JFrame {
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(yenileHentbol)
+                .addComponent(refresh3)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -482,17 +480,17 @@ public class AnaSayfaa extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sorgulHenbol)
+                    .addComponent(searchMatchH)
                     .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(36, 36, 36)
-                .addComponent(yenileHentbol)
+                .addComponent(refresh3)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        sorgulaBasketbol.addTab("Hentbol", jPanel4);
+        tabbedPane.addTab("Hentbol", jPanel4);
 
         jTable8.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -504,26 +502,26 @@ public class AnaSayfaa extends javax.swing.JFrame {
         ));
         jScrollPane8.setViewportView(jTable8);
 
-        sorgulBasketbol.setText("Müsabaka Ara");
-        sorgulBasketbol.addActionListener(new java.awt.event.ActionListener() {
+        searchMatchB.setText("Search");
+        searchMatchB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sorgulBasketbolActionPerformed(evt);
+                searchMatchBActionPerformed(evt);
             }
         });
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ligler", "Takımlar", "Yer", "Tarih", "Skor" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Leagues", "Takımlar", "Yer", "Tarih", "Skor" }));
         jComboBox5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox5ActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Ligler:");
+        filter.setText("Filter:");
 
-        yennileBasketbol.setText("Yenile");
-        yennileBasketbol.addActionListener(new java.awt.event.ActionListener() {
+        refresh4.setText("Refresh");
+        refresh4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                yennileBasketbolActionPerformed(evt);
+                refresh4ActionPerformed(evt);
             }
         });
 
@@ -537,9 +535,9 @@ public class AnaSayfaa extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(basket, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(sorgulBasketbol)
+                        .addComponent(searchMatchB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
+                        .addComponent(filter)
                         .addGap(27, 27, 27)
                         .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))
@@ -547,7 +545,7 @@ public class AnaSayfaa extends javax.swing.JFrame {
                         .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 780, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(yennileBasketbol)
+                        .addComponent(refresh4)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel6Layout.setVerticalGroup(
@@ -556,65 +554,65 @@ public class AnaSayfaa extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(basket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sorgulBasketbol)
+                    .addComponent(searchMatchB)
                     .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(filter))
                 .addGap(26, 26, 26)
-                .addComponent(yennileBasketbol)
+                .addComponent(refresh4)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        sorgulaBasketbol.addTab("Basketbol", jPanel6);
+        tabbedPane.addTab("Basketbol", jPanel6);
 
         label1.setBackground(new java.awt.Color(142, 142, 142));
         label1.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
         label1.setForeground(new java.awt.Color(200, 232, 101));
-        label1.setText(" Spor Müsabakası Takip Sistemi");
+        label1.setText(" Sports Match Tracking System");
 
         jMenu1.setText("File");
 
-        seciliDosyayaAktar.setText("Hepsini Dosyaya Aktar");
-        seciliDosyayaAktar.addMouseListener(new java.awt.event.MouseAdapter() {
+        exportAll.setText("Export All");
+        exportAll.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                seciliDosyayaAktarMousePressed(evt);
+                exportAllMousePressed(evt);
             }
         });
-        seciliDosyayaAktar.addActionListener(new java.awt.event.ActionListener() {
+        exportAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                seciliDosyayaAktarActionPerformed(evt);
+                exportAllActionPerformed(evt);
             }
         });
-        jMenu1.add(seciliDosyayaAktar);
+        jMenu1.add(exportAll);
 
-        dosyadanAktar.setText("Seçili Satırı Dosyaya Aktar");
-        dosyadanAktar.addMouseListener(new java.awt.event.MouseAdapter() {
+        exportSelected.setText("Export Selected");
+        exportSelected.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                dosyadanAktarMousePressed(evt);
+                exportSelectedMousePressed(evt);
             }
         });
-        jMenu1.add(dosyadanAktar);
+        jMenu1.add(exportSelected);
 
-        hepsiniAktar.setText("Dosyadan Aktar");
-        hepsiniAktar.addMouseListener(new java.awt.event.MouseAdapter() {
+        importFromFile.setText("Import From File");
+        importFromFile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                hepsiniAktarMousePressed(evt);
+                importFromFileMousePressed(evt);
             }
         });
-        hepsiniAktar.addActionListener(new java.awt.event.ActionListener() {
+        importFromFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hepsiniAktarActionPerformed(evt);
+                importFromFileActionPerformed(evt);
             }
         });
-        jMenu1.add(hepsiniAktar);
+        jMenu1.add(importFromFile);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Ana Sayfa");
+        jMenu2.setText("Main Page");
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Müsabaka Admin");
+        jMenu3.setText("Match Admin");
 
         jMenuItem1.setText("Müsabaka Ekle");
         jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -664,10 +662,10 @@ public class AnaSayfaa extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu6.setText("Hakkında");
+        jMenu6.setText("About");
         jMenuBar1.add(jMenu6);
 
-        jMenu5.setText("Çıkış");
+        jMenu5.setText("Log out");
         jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu5MouseClicked(evt);
@@ -689,7 +687,7 @@ public class AnaSayfaa extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sorgulaBasketbol)
+                    .addComponent(tabbedPane)
                     .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -699,100 +697,100 @@ public class AnaSayfaa extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
-                .addComponent(sorgulaBasketbol, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sorgulafutbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sorgulafutbolActionPerformed
+    private void searchMatchFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMatchFActionPerformed
         String sorgul = sorgu.getText();
-        sorgula("Futbol", jTable5, sorgul);
-    }//GEN-LAST:event_sorgulafutbolActionPerformed
+        search("Futbol", jTable5, sorgul);
+    }//GEN-LAST:event_searchMatchFActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         String lig2 = (String) jComboBox2.getSelectedItem();
-        sorgulaLig(jTable5, "futbol", lig2, jComboBox2);
+        queryLeague(jTable5, "futbol", lig2, jComboBox2);
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
-    private void yenileFutbol1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yenileFutbol1ActionPerformed
+    private void refresh1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh1ActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTable5.getModel();
         model.setRowCount(0);
         data.fetchDataForSport("Futbol", jTable5, conn);
-    }//GEN-LAST:event_yenileFutbol1ActionPerformed
+    }//GEN-LAST:event_refresh1ActionPerformed
 
-    private void sorgulaVoleybolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sorgulaVoleybolActionPerformed
+    private void searchMatchVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMatchVActionPerformed
         String sorgul = vol.getText();
-        sorgula("Voleybol", jTable6, sorgul);
-    }//GEN-LAST:event_sorgulaVoleybolActionPerformed
+        search("Voleybol", jTable6, sorgul);
+    }//GEN-LAST:event_searchMatchVActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         String lig4 = (String) jComboBox3.getSelectedItem();
-        sorgulaLig(jTable6, "voleybol", lig4, jComboBox3);
+        queryLeague(jTable6, "voleybol", lig4, jComboBox3);
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
-    private void yenileVoleybolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yenileVoleybolActionPerformed
+    private void refresh2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh2ActionPerformed
         data.fetchDataForSport("Voleybol", jTable6, conn);
-    }//GEN-LAST:event_yenileVoleybolActionPerformed
+    }//GEN-LAST:event_refresh2ActionPerformed
 
-    private void sorgulHenbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sorgulHenbolActionPerformed
+    private void searchMatchHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMatchHActionPerformed
         String sorgul = hent.getText();
-        sorgula("Hentbol", jTable7, sorgul);
-    }//GEN-LAST:event_sorgulHenbolActionPerformed
+        search("Hentbol", jTable7, sorgul);
+    }//GEN-LAST:event_searchMatchHActionPerformed
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         String lig1 = (String) jComboBox4.getSelectedItem();
-        sorgulaLig(jTable7, "hentbol", lig1, jComboBox4);
+        queryLeague(jTable7, "hentbol", lig1, jComboBox4);
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
-    private void yenileHentbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yenileHentbolActionPerformed
+    private void refresh3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh3ActionPerformed
         data.fetchDataForSport("Hentbol", jTable7, conn);
-    }//GEN-LAST:event_yenileHentbolActionPerformed
+    }//GEN-LAST:event_refresh3ActionPerformed
 
-    private void sorgulBasketbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sorgulBasketbolActionPerformed
+    private void searchMatchBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMatchBActionPerformed
         String sorgul = basket.getText();
-        sorgula("Basketbol", jTable8, sorgul);
-    }//GEN-LAST:event_sorgulBasketbolActionPerformed
+        search("Basketbol", jTable8, sorgul);
+    }//GEN-LAST:event_searchMatchBActionPerformed
 
     private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
         String lig3 = (String) jComboBox5.getSelectedItem();
-        sorgulaLig(jTable8, "basketbol", lig3, jComboBox5);
+        queryLeague(jTable8, "basketbol", lig3, jComboBox5);
     }//GEN-LAST:event_jComboBox5ActionPerformed
 
-    private void yennileBasketbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yennileBasketbolActionPerformed
+    private void refresh4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh4ActionPerformed
         data.fetchDataForSport("Basketbol", jTable8, conn);
-    }//GEN-LAST:event_yennileBasketbolActionPerformed
+    }//GEN-LAST:event_refresh4ActionPerformed
 
-    private void sorgulaBasketbolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sorgulaBasketbolMouseClicked
+    private void tabbedPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_sorgulaBasketbolMouseClicked
+    }//GEN-LAST:event_tabbedPaneMouseClicked
 
-    private void dosyadanAktarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dosyadanAktarMousePressed
+    private void exportSelectedMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportSelectedMousePressed
 
-        dosyaYazdır(jTable5, path);
-    }//GEN-LAST:event_dosyadanAktarMousePressed
+        printToFile(jTable5, path);
+    }//GEN-LAST:event_exportSelectedMousePressed
 
-    private void hepsiniAktarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hepsiniAktarMousePressed
-        int selectedIndex = sorgulaBasketbol.getSelectedIndex();
-        String selectedTabName = sorgulaBasketbol.getTitleAt(selectedIndex);
+    private void importFromFileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_importFromFileMousePressed
+        int selectedIndex = tabbedPane.getSelectedIndex();
+        String selectedTabName = tabbedPane.getTitleAt(selectedIndex);
 
-        DosyaOku(selectedTabName,path);
+        readFile(selectedTabName, path);
 
-    }//GEN-LAST:event_hepsiniAktarMousePressed
+    }//GEN-LAST:event_importFromFileMousePressed
 
-    private void hepsiniAktarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hepsiniAktarActionPerformed
+    private void importFromFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importFromFileActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_hepsiniAktarActionPerformed
+    }//GEN-LAST:event_importFromFileActionPerformed
 
     private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
 
     }//GEN-LAST:event_jMenuItem1MouseClicked
 
     private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
-        MüsabakaAdminn müs = new MüsabakaAdminn();
+        MatchAdmin m = new MatchAdmin();
         this.setVisible(false);
-        müs.setVisible(true);
+        m.setVisible(true);
     }//GEN-LAST:event_jMenuItem1MousePressed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -805,19 +803,19 @@ public class AnaSayfaa extends javax.swing.JFrame {
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         this.setVisible(false);
-        Istatistikler is = new Istatistikler();
-        is.setVisible(true);
+        Statistics st = new Statistics();
+        st.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
-        Giris giris = new Giris();
+        Login login = new Login();
 
         int cevap = JOptionPane.showConfirmDialog(null, "Çıkış Yapmak istediğinize emin misiniz?", "ÇIKIŞ", JOptionPane.YES_NO_OPTION);
 
         if (cevap == JOptionPane.YES_OPTION) {
             this.setVisible(false);
-            giris.setVisible(true);
+            login.setVisible(true);
         }
     }//GEN-LAST:event_jMenu5MouseClicked
 
@@ -825,82 +823,82 @@ public class AnaSayfaa extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenu5ActionPerformed
 
-    private void seciliDosyayaAktarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seciliDosyayaAktarActionPerformed
+    private void exportAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportAllActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_seciliDosyayaAktarActionPerformed
+    }//GEN-LAST:event_exportAllActionPerformed
 
-    private void seciliDosyayaAktarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seciliDosyayaAktarMousePressed
-        
-                 if (jTable5.isShowing()) {
-                    dosyaYazdırhepsi(jTable5, path);
-                }
-                if (jTable6.isShowing()) {
-                    dosyaYazdırhepsi(jTable6, path);
-                }
-                if (jTable7.isShowing()) {
-                    dosyaYazdırhepsi(jTable7, path);
-                }
-                if (jTable8.isShowing()) {
-                    dosyaYazdırhepsi(jTable8, path);
-                }
+    private void exportAllMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportAllMousePressed
+
+        if (jTable5.isShowing()) {
+            printAllToFile(jTable5, path);
+        }
+        if (jTable6.isShowing()) {
+            printAllToFile(jTable6, path);
+        }
+        if (jTable7.isShowing()) {
+            printAllToFile(jTable7, path);
+        }
+        if (jTable8.isShowing()) {
+            printAllToFile(jTable8, path);
+        }
 
 
-    }//GEN-LAST:event_seciliDosyayaAktarMousePressed
+    }//GEN-LAST:event_exportAllMousePressed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MousePressed
-       
-          MüsabakaAdminn müs = new MüsabakaAdminn();
+
+        MatchAdmin m = new MatchAdmin();
         this.setVisible(false);
-        müs.setVisible(true);
+        m.setVisible(true);
     }//GEN-LAST:event_jMenuItem2MousePressed
-    public void dosyaYazdır(JTable table, String file) {
-        int row = table.getSelectedRow();
-        if (row == -1) {
-            JOptionPane.showMessageDialog(null, "Lütfen bir satır seçin.", "Hata", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
-
-            for (int i = 0; i < model.getColumnCount(); i++) {
-                writer.write(model.getValueAt(row, i).toString());
-                if (i < model.getColumnCount() - 1) {
-                    writer.write(","); 
-                }
-            }
-            writer.write("\n");
-            writer.close();
-            System.out.println("Müsabaka dosyaya aktarıldı.");
-
-        } catch (IOException ex) {
-            System.err.println("Tablo dosyaya aktarılırken bir hata oluştu: " + ex.getMessage());
-        }
+    public void printToFile(JTable table, String file) {
+    int row = table.getSelectedRow();
+    if (row == -1) {
+        JOptionPane.showMessageDialog(null, "Please select a row.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
     }
-    public void DosyaOku(String sprtName, String file) {
-    String satir;
-    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-        while ((satir = reader.readLine()) != null) {
-            String[] veri = satir.split(",");
-            
-            for (String data : veri) {
-                System.out.print(data.trim() + " "); 
+
+    try {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        for (int i = 0; i < model.getColumnCount(); i++) {
+            writer.write(model.getValueAt(row, i).toString());
+            if (i < model.getColumnCount() - 1) {
+                writer.write(",");
             }
-            System.out.println();
         }
-        
-        
+        writer.write("\n");
+        writer.close();
+        System.out.println("Match transferred to file.");
+
     } catch (IOException ex) {
-        Logger.getLogger(AnaSayfaa.class.getName()).log(Level.SEVERE, null, ex);
+        System.err.println("An error occurred while transferring the table to the file: " + ex.getMessage());
     }
 }
 
-    public void dosyaYazdırhepsi(JTable table, String file) {
+public void readFile(String sprtName, String file) {
+    String line;
+    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        while ((line = reader.readLine()) != null) {
+            String[] data = line.split(",");
+
+            for (String d : data) {
+                System.out.print(d.trim() + " ");
+            }
+            System.out.println();
+        }
+
+    } catch (IOException ex) {
+        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+
+public void printAllToFile(JTable table, String file) {
     try {
         BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
         DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -909,22 +907,22 @@ public class AnaSayfaa extends javax.swing.JFrame {
             for (int col = 0; col < model.getColumnCount(); col++) {
                 writer.write(model.getValueAt(row, col).toString());
                 if (col < model.getColumnCount() - 1) {
-                    writer.write(","); 
+                    writer.write(",");
                 }
             }
             writer.write("\n");
         }
-        
+
         writer.close();
-        JOptionPane.showMessageDialog(null, "Tablodaki tüm satırlar dosyaya aktarıldı.", "Bilgi", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "All rows in the table have been transferred to the file.", "Information", JOptionPane.INFORMATION_MESSAGE);
 
     } catch (IOException ex) {
-        System.err.println("Tablo dosyaya aktarılırken bir hata oluştu: " + ex.getMessage());
+        System.err.println("An error occurred while transferring the table to the file: " + ex.getMessage());
     }
 }
 
 
-    private void sorgulaLig(JTable table, String sprtName, String ligName, JComboBox combo) {
+    private void queryLeague(JTable table, String sprtName, String leagueName, JComboBox combo) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
 
         try {
@@ -932,24 +930,25 @@ public class AnaSayfaa extends javax.swing.JFrame {
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             model.setRowCount(0);
-            combo.addItem("Tümü");
+            combo.addItem("All");
             while (rs.next()) {
-                String takımlar = rs.getString("TAKIMLAR");
-                String yer = rs.getString("YER");
-                String lig = rs.getString("LİG");
-                String tarih = rs.getString("TARİH");
-                String skor = rs.getString("SKOR");
-                if (ligName != null && ligName.contains(lig) || "Tümü".equals(ligName)) {
-                    model.addRow(new String[]{takımlar, yer, lig, tarih, skor});
+                String teams = rs.getString("TAKIMLAR");
+                String place = rs.getString("YER");
+                String league = rs.getString("LİG");
+                String date = rs.getString("TARİH");
+                String score = rs.getString("SKOR");
+
+                if (leagueName != null && leagueName.contains(league) || "All".equals(leagueName)) {
+                model.addRow(new String[]{teams, place, league, date, score});
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            Logger.getLogger(AnaSayfaa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void sorgula(String sportName, JTable table, String keyword) {
+    private void search(String sportName, JTable table, String keyword) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
 
@@ -960,18 +959,19 @@ public class AnaSayfaa extends javax.swing.JFrame {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                String takımlar = rs.getString("TAKIMLAR");
-                String yer = rs.getString("YER");
-                String lig = rs.getString("LİG");
-                String tarih = rs.getString("TARİH");
-                String skor = rs.getString("SKOR");
-                if (takımlar.toLowerCase().contains(keyword) || yer.toLowerCase().contains(keyword) || lig.toLowerCase().contains(keyword) || tarih.contains(keyword) || skor.contains(keyword)) {
-                    model.addRow(new String[]{takımlar, yer, lig, tarih, skor});
+               String teams = rs.getString("TAKIMLAR");
+                String place = rs.getString("YER");
+                String league = rs.getString("LİG");
+                String date = rs.getString("TARİH");
+                String score = rs.getString("SKOR");
+
+                if (teams.toLowerCase().contains(keyword) || place.toLowerCase().contains(keyword) || league.toLowerCase().contains(keyword) || date.contains(keyword) || score.contains(keyword)) {
+                model.addRow(new String[]{teams, place, league, date, score});
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            Logger.getLogger(AnaSayfaa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -992,29 +992,31 @@ public class AnaSayfaa extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AnaSayfaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AnaSayfaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AnaSayfaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AnaSayfaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AnaSayfaa().setVisible(true);
+                new Main().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField basket;
-    private javax.swing.JMenuItem dosyadanAktar;
+    private javax.swing.JMenuItem exportAll;
+    private javax.swing.JMenuItem exportSelected;
+    private javax.swing.JLabel filter;
     private javax.swing.JTextField hent;
-    private javax.swing.JMenuItem hepsiniAktar;
+    private javax.swing.JMenuItem importFromFile;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
@@ -1022,7 +1024,6 @@ public class AnaSayfaa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -1047,17 +1048,16 @@ public class AnaSayfaa extends javax.swing.JFrame {
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
     private java.awt.Label label1;
-    private javax.swing.JMenuItem seciliDosyayaAktar;
+    private javax.swing.JButton refresh1;
+    private javax.swing.JButton refresh2;
+    private javax.swing.JButton refresh3;
+    private javax.swing.JButton refresh4;
+    private javax.swing.JButton searchMatchB;
+    private javax.swing.JButton searchMatchF;
+    private javax.swing.JButton searchMatchH;
+    private javax.swing.JButton searchMatchV;
     private javax.swing.JTextField sorgu;
-    private javax.swing.JButton sorgulBasketbol;
-    private javax.swing.JButton sorgulHenbol;
-    private javax.swing.JTabbedPane sorgulaBasketbol;
-    private javax.swing.JButton sorgulaVoleybol;
-    private javax.swing.JButton sorgulafutbol;
+    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTextField vol;
-    private javax.swing.JButton yenileFutbol1;
-    private javax.swing.JButton yenileHentbol;
-    private javax.swing.JButton yenileVoleybol;
-    private javax.swing.JButton yennileBasketbol;
     // End of variables declaration//GEN-END:variables
 }

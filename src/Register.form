@@ -27,9 +27,9 @@
               <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="kontrol" min="-2" max="-2" attributes="0"/>
+                      <Component id="robotCheck" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="uyari" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="warning" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -40,11 +40,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tel" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="soyad" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="ad" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="phone" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lastName" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="firstName" alignment="0" max="32767" attributes="0"/>
                                   <Component id="email" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="sifre" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="password" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="kayıt" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
@@ -65,12 +65,12 @@
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="adu" alignment="0" max="32767" attributes="0"/>
-                          <Component id="soyadu" alignment="0" max="32767" attributes="0"/>
-                          <Component id="emailu" alignment="0" max="32767" attributes="0"/>
-                          <Component id="telu" alignment="0" max="32767" attributes="0"/>
+                          <Component id="firstNameWarning" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lastNameWarning" alignment="0" max="32767" attributes="0"/>
+                          <Component id="emailWarning" alignment="0" max="32767" attributes="0"/>
+                          <Component id="phoneWarning" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="sifreu" min="-2" pref="227" max="-2" attributes="0"/>
+                              <Component id="passwordWarning" min="-2" pref="227" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -102,8 +102,8 @@
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ad" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="adu" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="firstName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="firstNameWarning" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -111,38 +111,38 @@
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="soyad" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="soyadu" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lastName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lastNameWarning" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="telu" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="phone" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="phoneWarning" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="email" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="emailu" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="emailWarning" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="sifre" min="-2" max="-2" attributes="0"/>
+                      <Component id="password" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="kontrol" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="uyari" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="robotCheck" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="warning" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       <Component id="kayıt" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="208" max="-2" attributes="0"/>
-                      <Component id="sifreu" min="-2" max="-2" attributes="0"/>
+                      <Component id="passwordWarning" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -151,27 +151,27 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="telu">
+    <Component class="javax.swing.JLabel" name="phoneWarning">
       <Properties>
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="soyad">
+    <Component class="javax.swing.JTextField" name="lastName">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Bulut"/>
+        <Property name="text" type="java.lang.String" value="White"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="soyadActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lastNameActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="uyari">
+    <Component class="javax.swing.JLabel" name="warning">
       <Properties>
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Telefon NO:"/>
+        <Property name="text" type="java.lang.String" value="Phone Number:"/>
       </Properties>
     </Component>
     <Component class="java.awt.Label" name="label2">
@@ -185,15 +185,15 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="65" green="e8" red="c8" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="  Kay&#x131;t"/>
+        <Property name="text" type="java.lang.String" value="  Register"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tel">
+    <Component class="javax.swing.JTextField" name="phone">
       <Properties>
         <Property name="text" type="java.lang.String" value="0123456789"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="telActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="phoneActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="geri">
@@ -209,7 +209,7 @@
         <Property name="text" type="java.lang.String" value="E-Mail:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="sifreu">
+    <Component class="javax.swing.JLabel" name="passwordWarning">
       <Properties>
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
@@ -224,15 +224,18 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x15e;ifre:"/>
+        <Property name="text" type="java.lang.String" value="Password:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="kontrol">
+    <Component class="javax.swing.JCheckBox" name="robotCheck">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Robot De&#x11f;ilim"/>
+        <Property name="text" type="java.lang.String" value="I am not a robot"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="robotCheckActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="sifre">
+    <Component class="javax.swing.JPasswordField" name="password">
     </Component>
     <Component class="javax.swing.JButton" name="kay&#x131;t">
       <Properties>
@@ -242,34 +245,34 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kay&#x131;tActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="adu">
+    <Component class="javax.swing.JLabel" name="firstNameWarning">
       <Properties>
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ad:"/>
+        <Property name="text" type="java.lang.String" value="Name:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="soyadu">
+    <Component class="javax.swing.JLabel" name="lastNameWarning">
       <Properties>
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="ad">
+    <Component class="javax.swing.JTextField" name="firstName">
       <Properties>
         <Property name="text" type="java.lang.String" value="Admin"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="emailu">
+    <Component class="javax.swing.JLabel" name="emailWarning">
       <Properties>
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Soyad:"/>
+        <Property name="text" type="java.lang.String" value="Surname:"/>
       </Properties>
     </Component>
   </SubComponents>

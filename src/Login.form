@@ -35,18 +35,18 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="kayitOl" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="registerButton" alignment="1" max="32767" attributes="0"/>
                                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="giris" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="kad" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="loginButton" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="usernameField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="password" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="şifreunut" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
+                                  <Component id="passwordField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="forgotPasswordButton" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="uyaripassword" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="uyarikad" alignment="0" pref="312" max="32767" attributes="0"/>
+                                  <Component id="passwordWarning" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="usernameWarning" alignment="0" pref="312" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -66,24 +66,24 @@
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="kad" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                  <Component id="uyarikad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="usernameField" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="usernameWarning" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="uyaripassword" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="password" alignment="1" min="-2" pref="29" max="-2" attributes="0"/>
+                  <Component id="passwordWarning" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="passwordField" alignment="1" min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="giris" min="-2" max="-2" attributes="0"/>
+              <Component id="loginButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="kayitOl" min="-2" max="-2" attributes="0"/>
+              <Component id="registerButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="18" max="32767" attributes="0"/>
               <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="şifreunut" min="-2" max="-2" attributes="0"/>
+              <Component id="forgotPasswordButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -106,27 +106,27 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="65" green="e8" red="c8" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="  Giri&#x15f;"/>
+        <Property name="text" type="java.lang.String" value="  Login"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="uyarikad">
+    <Component class="javax.swing.JLabel" name="usernameWarning">
       <Properties>
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="uyaripassword">
+    <Component class="javax.swing.JLabel" name="passwordWarning">
       <Properties>
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="password">
+    <Component class="javax.swing.JPasswordField" name="passwordField">
     </Component>
-    <Component class="javax.swing.JButton" name="&#x15f;ifreunut">
+    <Component class="javax.swing.JButton" name="forgotPasswordButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x15e;ifremi Unuttum"/>
+        <Property name="text" type="java.lang.String" value="Forgot Password"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="&#x15f;ifreunutActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="forgotPasswordButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton1">
@@ -134,27 +134,27 @@
         <Property name="text" type="java.lang.String" value="Robot De&#x11f;ilim"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="kad">
+    <Component class="javax.swing.JTextField" name="usernameField">
     </Component>
-    <Component class="javax.swing.JButton" name="giris">
+    <Component class="javax.swing.JButton" name="loginButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Giri&#x15f;"/>
+        <Property name="text" type="java.lang.String" value="Login"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="girisActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="kayitOl">
+    <Component class="javax.swing.JButton" name="registerButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Kay&#x131;t OL"/>
+        <Property name="text" type="java.lang.String" value="Register"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kayitOlActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registerButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Kullan&#x131;c&#x131; Ad&#x131;:"/>
+        <Property name="text" type="java.lang.String" value="Username:"/>
       </Properties>
     </Component>
   </SubComponents>

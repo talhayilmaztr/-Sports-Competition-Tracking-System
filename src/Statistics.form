@@ -6,7 +6,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ana Sayfa"/>
+            <Property name="text" type="java.lang.String" value="Main Page"/>
           </Properties>
           <Events>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu2MousePressed"/>
@@ -14,7 +14,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="M&#xfc;sabaka Admin"/>
+            <Property name="text" type="java.lang.String" value="Match Admin"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
@@ -56,7 +56,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Hakk&#x131;nda"/>
+            <Property name="text" type="java.lang.String" value="About"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu4">
@@ -66,7 +66,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#xc7;&#x131;k&#x131;&#x15f;"/>
+            <Property name="text" type="java.lang.String" value="Log out"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu5MouseClicked"/>
@@ -136,7 +136,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="65" green="e8" red="c8" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="  &#x130;statistikler"/>
+        <Property name="text" type="java.lang.String" value="  Statistics"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
@@ -179,13 +179,11 @@
                           </Group>
                           <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jScrollPane6" min="-2" pref="110" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jScrollPane6" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane5" min="-2" pref="436" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane5" min="-2" pref="365" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -202,13 +200,47 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="6" rowCount="4">
-                    <Column editable="true" title="TAKIM" type="java.lang.Object"/>
-                    <Column editable="true" title="OYNANAN MA&#xc7;" type="java.lang.Object"/>
-                    <Column editable="true" title="GAL&#x130;B&#x130;YET" type="java.lang.Object"/>
-                    <Column editable="true" title="MA&#x11e;LUB&#x130;YET" type="java.lang.Object"/>
-                    <Column editable="true" title="GOLLER" type="java.lang.Object"/>
-                    <Column editable="true" title="PUAN" type="java.lang.Object"/>
+                    <Column editable="true" title="Teams" type="java.lang.Object"/>
+                    <Column editable="true" title="Matches Played" type="java.lang.Object"/>
+                    <Column editable="true" title="Wins" type="java.lang.Object"/>
+                    <Column editable="true" title="Losses" type="java.lang.Object"/>
+                    <Column editable="true" title="Goals" type="java.lang.Object"/>
+                    <Column editable="true" title="Points" type="java.lang.Object"/>
                   </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
@@ -227,12 +259,11 @@
             <Component class="javax.swing.JList" name="jList3">
               <Properties>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                  <StringArray count="5">
-                    <StringItem index="0" value="Galatasaray"/>
-                    <StringItem index="1" value="Fenerbah&#xe7;e"/>
-                    <StringItem index="2" value="Trabzon"/>
-                    <StringItem index="3" value="Konya"/>
-                    <StringItem index="4" value="Be&#x15f;ikta&#x15f;"/>
+                  <StringArray count="4">
+                    <StringItem index="0" value="Liverpool"/>
+                    <StringItem index="1" value="Real Madrid"/>
+                    <StringItem index="2" value="Barcelona"/>
+                    <StringItem index="3" value="Turkey"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -249,7 +280,7 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
-                <StringItem index="0" value="Futbol"/>
+                <StringItem index="0" value="Football"/>
                 <StringItem index="1" value="Basketbol"/>
                 <StringItem index="2" value="Voleybol"/>
                 <StringItem index="3" value="Hentbol"/>
@@ -271,7 +302,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ligler:"/>
+            <Property name="text" type="java.lang.String" value="Leagues:"/>
           </Properties>
         </Component>
       </SubComponents>

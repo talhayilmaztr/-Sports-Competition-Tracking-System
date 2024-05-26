@@ -9,42 +9,42 @@
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="seciliDosyayaAktar">
+            <MenuItem class="javax.swing.JMenuItem" name="exportAll">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Hepsini Dosyaya Aktar"/>
+                <Property name="text" type="java.lang.String" value="Export All"/>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="seciliDosyayaAktarMousePressed"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="seciliDosyayaAktarActionPerformed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="exportAllMousePressed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportAllActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="dosyadanAktar">
+            <MenuItem class="javax.swing.JMenuItem" name="exportSelected">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Se&#xe7;ili Sat&#x131;r&#x131; Dosyaya Aktar"/>
+                <Property name="text" type="java.lang.String" value="Export Selected"/>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="dosyadanAktarMousePressed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="exportSelectedMousePressed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="hepsiniAktar">
+            <MenuItem class="javax.swing.JMenuItem" name="importFromFile">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dosyadan Aktar"/>
+                <Property name="text" type="java.lang.String" value="Import From File"/>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="hepsiniAktarMousePressed"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hepsiniAktarActionPerformed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="importFromFileMousePressed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importFromFileActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ana Sayfa"/>
+            <Property name="text" type="java.lang.String" value="Main Page"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="M&#xfc;sabaka Admin"/>
+            <Property name="text" type="java.lang.String" value="Match Admin"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
@@ -88,12 +88,12 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Hakk&#x131;nda"/>
+            <Property name="text" type="java.lang.String" value="About"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#xc7;&#x131;k&#x131;&#x15f;"/>
+            <Property name="text" type="java.lang.String" value="Log out"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu5MouseClicked"/>
@@ -129,7 +129,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="sorgulaBasketbol" alignment="0" max="32767" attributes="0"/>
+                  <Component id="tabbedPane" alignment="0" max="32767" attributes="0"/>
                   <Component id="label1" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -142,16 +142,16 @@
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Component id="label1" min="-2" pref="70" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Component id="sorgulaBasketbol" min="-2" pref="519" max="-2" attributes="0"/>
+              <Component id="tabbedPane" min="-2" pref="519" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JTabbedPane" name="sorgulaBasketbol">
+    <Container class="javax.swing.JTabbedPane" name="tabbedPane">
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="sorgulaBasketbolMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabbedPaneMouseClicked"/>
       </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
@@ -174,8 +174,8 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="sorgu" min="-2" pref="271" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="sorgulafutbol" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="195" max="32767" attributes="0"/>
+                              <Component id="searchMatchF" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="237" max="32767" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="jComboBox2" min="-2" max="-2" attributes="0"/>
@@ -183,7 +183,7 @@
                           </Group>
                           <Component id="jScrollPane5" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="yenileFutbol1" min="-2" max="-2" attributes="0"/>
+                              <Component id="refresh1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -196,12 +196,12 @@
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="sorgu" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="sorgulafutbol" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="searchMatchF" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="yenileFutbol1" min="-2" max="-2" attributes="0"/>
+                      <Component id="refresh1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane5" min="-2" pref="361" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="259" max="-2" attributes="0"/>
@@ -237,12 +237,12 @@
             </Container>
             <Component class="javax.swing.JTextField" name="sorgu">
             </Component>
-            <Component class="javax.swing.JButton" name="sorgulafutbol">
+            <Component class="javax.swing.JButton" name="searchMatchF">
               <Properties>
-                <Property name="text" type="java.lang.String" value="M&#xfc;sabaka Ara"/>
+                <Property name="text" type="java.lang.String" value="Search"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sorgulafutbolActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchMatchFActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox2">
@@ -269,12 +269,12 @@
                 <Property name="text" type="java.lang.String" value="Filtrele"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="yenileFutbol1">
+            <Component class="javax.swing.JButton" name="refresh1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Yenile"/>
+                <Property name="text" type="java.lang.String" value="Refresh"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="yenileFutbol1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refresh1ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -297,15 +297,15 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="vol" min="-2" pref="271" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="sorgulaVoleybol" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="195" max="32767" attributes="0"/>
+                              <Component id="searchMatchV" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="237" max="32767" attributes="0"/>
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="jComboBox3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="yenileVoleybol" min="-2" max="-2" attributes="0"/>
+                              <Component id="refresh2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane6" alignment="0" max="32767" attributes="0"/>
@@ -319,12 +319,12 @@
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="vol" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="sorgulaVoleybol" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="searchMatchV" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="yenileVoleybol" min="-2" max="-2" attributes="0"/>
+                      <Component id="refresh2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane6" min="-2" pref="363" max="-2" attributes="0"/>
                       <EmptySpace pref="17" max="32767" attributes="0"/>
@@ -360,12 +360,12 @@
             </Container>
             <Component class="javax.swing.JTextField" name="vol">
             </Component>
-            <Component class="javax.swing.JButton" name="sorgulaVoleybol">
+            <Component class="javax.swing.JButton" name="searchMatchV">
               <Properties>
-                <Property name="text" type="java.lang.String" value="M&#xfc;sabaka Ara"/>
+                <Property name="text" type="java.lang.String" value="Search"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sorgulaVoleybolActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchMatchVActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox3">
@@ -392,12 +392,12 @@
                 <Property name="text" type="java.lang.String" value="Filtrele"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="yenileVoleybol">
+            <Component class="javax.swing.JButton" name="refresh2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Yenile"/>
+                <Property name="text" type="java.lang.String" value="Refresh"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="yenileVoleybolActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refresh2ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -420,7 +420,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="hent" min="-2" pref="271" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="sorgulHenbol" min="-2" max="-2" attributes="0"/>
+                              <Component id="searchMatchH" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -434,7 +434,7 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="yenileHentbol" min="-2" max="-2" attributes="0"/>
+                      <Component id="refresh3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -445,12 +445,12 @@
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="hent" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="sorgulHenbol" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="searchMatchH" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="yenileHentbol" min="-2" max="-2" attributes="0"/>
+                      <Component id="refresh3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane7" min="-2" pref="343" max="-2" attributes="0"/>
                       <EmptySpace pref="18" max="32767" attributes="0"/>
@@ -486,12 +486,12 @@
             </Container>
             <Component class="javax.swing.JTextField" name="hent">
             </Component>
-            <Component class="javax.swing.JButton" name="sorgulHenbol">
+            <Component class="javax.swing.JButton" name="searchMatchH">
               <Properties>
-                <Property name="text" type="java.lang.String" value="M&#xfc;sabaka Ara"/>
+                <Property name="text" type="java.lang.String" value="Search"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sorgulHenbolActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchMatchHActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox4">
@@ -518,12 +518,12 @@
                 <Property name="text" type="java.lang.String" value="Filtrele"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="yenileHentbol">
+            <Component class="javax.swing.JButton" name="refresh3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Yenile"/>
+                <Property name="text" type="java.lang.String" value="Refresh"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="yenileHentbolActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refresh3ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -546,9 +546,9 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="basket" min="-2" pref="271" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="sorgulBasketbol" min="-2" max="-2" attributes="0"/>
+                              <Component id="searchMatchB" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <Component id="filter" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="jComboBox5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
@@ -558,7 +558,7 @@
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="yennileBasketbol" min="-2" max="-2" attributes="0"/>
+                              <Component id="refresh4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -571,12 +571,12 @@
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="basket" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="sorgulBasketbol" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="searchMatchB" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="filter" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="yennileBasketbol" min="-2" max="-2" attributes="0"/>
+                      <Component id="refresh4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane8" min="-2" pref="341" max="-2" attributes="0"/>
                       <EmptySpace pref="30" max="32767" attributes="0"/>
@@ -612,19 +612,19 @@
             </Container>
             <Component class="javax.swing.JTextField" name="basket">
             </Component>
-            <Component class="javax.swing.JButton" name="sorgulBasketbol">
+            <Component class="javax.swing.JButton" name="searchMatchB">
               <Properties>
-                <Property name="text" type="java.lang.String" value="M&#xfc;sabaka Ara"/>
+                <Property name="text" type="java.lang.String" value="Search"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sorgulBasketbolActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchMatchBActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox5">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="5">
-                    <StringItem index="0" value="Ligler"/>
+                    <StringItem index="0" value="Leagues"/>
                     <StringItem index="1" value="Tak&#x131;mlar"/>
                     <StringItem index="2" value="Yer"/>
                     <StringItem index="3" value="Tarih"/>
@@ -639,17 +639,17 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel5">
+            <Component class="javax.swing.JLabel" name="filter">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ligler:"/>
+                <Property name="text" type="java.lang.String" value="Filter:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="yennileBasketbol">
+            <Component class="javax.swing.JButton" name="refresh4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Yenile"/>
+                <Property name="text" type="java.lang.String" value="Refresh"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="yennileBasketbolActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refresh4ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -667,7 +667,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="65" green="e8" red="c8" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value=" Spor M&#xfc;sabakas&#x131; Takip Sistemi"/>
+        <Property name="text" type="java.lang.String" value=" Sports Match Tracking System"/>
       </Properties>
     </Component>
   </SubComponents>

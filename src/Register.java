@@ -15,17 +15,17 @@ import java.util.logging.Logger;
  *
  * @author talhayilmaz
  */
-public class Kayıt extends javax.swing.JFrame {
-    Giris giris = new Giris();
+public class Register extends javax.swing.JFrame {
+    Login login = new Login();
     private static Connection conn;
     PreparedStatement ps;
    
-    public Kayıt() {
+    public Register() {
         initComponents();
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/SporM?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "password");
         } catch (SQLException ex) {
-            Logger.getLogger(Kayıt.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -38,51 +38,51 @@ public class Kayıt extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        telu = new javax.swing.JLabel();
-        soyad = new javax.swing.JTextField();
-        uyari = new javax.swing.JLabel();
+        phoneWarning = new javax.swing.JLabel();
+        lastName = new javax.swing.JTextField();
+        warning = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         label2 = new java.awt.Label();
-        tel = new javax.swing.JTextField();
+        phone = new javax.swing.JTextField();
         geri = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        sifreu = new javax.swing.JLabel();
+        passwordWarning = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        kontrol = new javax.swing.JCheckBox();
-        sifre = new javax.swing.JPasswordField();
+        robotCheck = new javax.swing.JCheckBox();
+        password = new javax.swing.JPasswordField();
         kayıt = new javax.swing.JButton();
-        adu = new javax.swing.JLabel();
+        firstNameWarning = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        soyadu = new javax.swing.JLabel();
-        ad = new javax.swing.JTextField();
-        emailu = new javax.swing.JLabel();
+        lastNameWarning = new javax.swing.JLabel();
+        firstName = new javax.swing.JTextField();
+        emailWarning = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        telu.setText(".");
+        phoneWarning.setText(".");
 
-        soyad.setText("Bulut");
-        soyad.addActionListener(new java.awt.event.ActionListener() {
+        lastName.setText("White");
+        lastName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                soyadActionPerformed(evt);
+                lastNameActionPerformed(evt);
             }
         });
 
-        uyari.setText(".");
+        warning.setText(".");
 
-        jLabel3.setText("Telefon NO:");
+        jLabel3.setText("Phone Number:");
 
         label2.setBackground(new java.awt.Color(142, 142, 142));
         label2.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
         label2.setForeground(new java.awt.Color(200, 232, 101));
-        label2.setText("  Kayıt");
+        label2.setText("  Register");
 
-        tel.setText("0123456789");
-        tel.addActionListener(new java.awt.event.ActionListener() {
+        phone.setText("0123456789");
+        phone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telActionPerformed(evt);
+                phoneActionPerformed(evt);
             }
         });
 
@@ -95,7 +95,7 @@ public class Kayıt extends javax.swing.JFrame {
 
         jLabel4.setText("E-Mail:");
 
-        sifreu.setText(".");
+        passwordWarning.setText(".");
 
         email.setText("admin123@gmail.com");
         email.addActionListener(new java.awt.event.ActionListener() {
@@ -104,9 +104,14 @@ public class Kayıt extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Şifre:");
+        jLabel5.setText("Password:");
 
-        kontrol.setText("Robot Değilim");
+        robotCheck.setText("I am not a robot");
+        robotCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                robotCheckActionPerformed(evt);
+            }
+        });
 
         kayıt.setText("Kayıt Ol");
         kayıt.addActionListener(new java.awt.event.ActionListener() {
@@ -115,17 +120,17 @@ public class Kayıt extends javax.swing.JFrame {
             }
         });
 
-        adu.setText(".");
+        firstNameWarning.setText(".");
 
-        jLabel1.setText("Ad:");
+        jLabel1.setText("Name:");
 
-        soyadu.setText(".");
+        lastNameWarning.setText(".");
 
-        ad.setText("Admin");
+        firstName.setText("Admin");
 
-        emailu.setText(".");
+        emailWarning.setText(".");
 
-        jLabel2.setText("Soyad:");
+        jLabel2.setText("Surname:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,9 +140,9 @@ public class Kayıt extends javax.swing.JFrame {
                 .addGap(105, 105, 105)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(kontrol)
+                        .addComponent(robotCheck)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(uyari, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(warning, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -146,11 +151,11 @@ public class Kayıt extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tel)
-                                    .addComponent(soyad)
-                                    .addComponent(ad)
+                                    .addComponent(phone)
+                                    .addComponent(lastName)
+                                    .addComponent(firstName)
                                     .addComponent(email)
-                                    .addComponent(sifre)
+                                    .addComponent(password)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(kayıt, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,12 +169,12 @@ public class Kayıt extends javax.swing.JFrame {
                                     .addComponent(jLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(adu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(soyadu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(emailu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(telu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(firstNameWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lastNameWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(emailWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(phoneWarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(sifreu, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(passwordWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(36, 36, 36))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -192,57 +197,57 @@ public class Kayıt extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(adu))
+                    .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(firstNameWarning))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(soyad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(soyadu))
+                            .addComponent(lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lastNameWarning))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(telu))
+                            .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(phoneWarning))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(emailu))
+                            .addComponent(emailWarning))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sifre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(kontrol)
-                            .addComponent(uyari))
+                            .addComponent(robotCheck)
+                            .addComponent(warning))
                         .addGap(42, 42, 42)
                         .addComponent(kayıt))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(208, 208, 208)
-                        .addComponent(sifreu)))
+                        .addComponent(passwordWarning)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void soyadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soyadActionPerformed
+    private void lastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_soyadActionPerformed
+    }//GEN-LAST:event_lastNameActionPerformed
 
-    private void telActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telActionPerformed
+    private void phoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_telActionPerformed
+    }//GEN-LAST:event_phoneActionPerformed
 
     private void geriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geriActionPerformed
-        giris.setVisible(true);
+        login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_geriActionPerformed
 
@@ -251,90 +256,95 @@ public class Kayıt extends javax.swing.JFrame {
     }//GEN-LAST:event_emailActionPerformed
 
     private void kayıtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kayıtActionPerformed
-        String addd = ad.getText();
+       String firstNameText = firstName.getText();
         int counter = 0;
 
-        if (!addd.matches("[a-zA-Z]+")) {
-            adu.setText("Ad yanlış");
+        if (!firstNameText.matches("[a-zA-Z]+")) {
+            firstNameWarning.setText("Invalid first name");
         } else {
-            adu.setText("");
+            firstNameWarning.setText("");
             counter++;
         }
 
-        String soyadd = soyad.getText();
-        if (!soyadd.matches("[a-zA-Z]+")) {
-            soyadu.setText("Soyad yanlış");
+        String lastNameText = lastName.getText();
+        if (!lastNameText.matches("[a-zA-Z]+")) {
+            lastNameWarning.setText("Invalid last name");
         } else {
-            soyadu.setText("");
+            lastNameWarning.setText("");
             counter++;
         }
 
-        String emaill = email.getText();
-        if (!emaill.matches("\\w+@\\w+\\.\\w+")) {
-            emailu.setText("Email yanlış");
+        String emailText = email.getText();
+        if (!emailText.matches("\\w+@\\w+\\.\\w+")) {
+            emailWarning.setText("Invalid email");
         } else {
-            emailu.setText("");
+            emailWarning.setText("");
             counter++;
         }
 
-        String telefon = tel.getText();
-        if (!telefon.matches("0[0-9]{10}")) {
-            telu.setText("Telefon yanlış");
+        String phoneText = phone.getText();
+        if (!phoneText.matches("0[0-9]{10}")) {
+            phoneWarning.setText("Invalid phone number");
         } else {
-            telu.setText("");
+            phoneWarning.setText("");
             counter++;
         }
-        String sifree = sifre.getText();
+        
+        String passwordText = password.getText();
         int control = 0;
-        if (sifree.length() < 8) {
-            sifreu.setText("Şifre en az 8 karakterden oluşmalıdır.");
+        if (passwordText.length() < 8) {
+            passwordWarning.setText("Password must be at least 8 characters long.");
         } else {
             control++;
         }
 
-        if (!sifree.matches(".*[A-Z].*")) {
-            sifreu.setText("Şifre en az bir büyük harf içermelidir.");
+        if (!passwordText.matches(".*[A-Z].*")) {
+            passwordWarning.setText("Password must contain at least one uppercase letter.");
         } else {
             control++;
         }
 
-        if (!sifree.matches(".*[a-z].*")) {
-            sifreu.setText("Şifre en az bir küçük harf içermelidir.");
+        if (!passwordText.matches(".*[a-z].*")) {
+            passwordWarning.setText("Password must contain at least one lowercase letter.");
         } else {
             control++;
         }
 
-        if (!sifree.matches(".*\\d.*")) {
-            sifreu.setText("Şifre en az bir rakam içermelidir.");
+        if (!passwordText.matches(".*\\d.*")) {
+            passwordWarning.setText("Password must contain at least one digit.");
         } else {
             control++;
         }
-        if (!kontrol.isSelected()) {
-            uyari.setText("Lütfen Seçin");
-        }else
-        uyari.setText(" ");
+        if (!robotCheck.isSelected()) {
+            warning.setText("Please check");
+        } else {
+            warning.setText(" ");
+        }
 
-        if (counter == 4 && control ==4) {
-            sifreu.setText(" ");
-            giris.setVisible(true);
+        if (counter == 4 && control == 4) {
+            passwordWarning.setText(" ");
+            login.setVisible(true);
             this.setVisible(false);
 
             try {
-
-                ps = conn.prepareStatement("INSERT INTO KAYIT VALUES (?,?,?,?,?)");
-                ps.setString(1, addd);
-                ps.setString(2, soyadd);
-                ps.setString(3, telefon);
-                ps.setString(4, emaill);
-                ps.setString(5, sifree);
+                ps = conn.prepareStatement("INSERT INTO REGISTER VALUES (?,?,?,?,?)");
+                ps.setString(1, firstNameText);
+                ps.setString(2, lastNameText);
+                ps.setString(3, phoneText);
+                ps.setString(4, emailText);
+                ps.setString(5, passwordText);
 
                 System.out.println(ps.executeUpdate());
 
             } catch (SQLException e) {
-                System.out.println("Hata Oluştu.");
+                System.out.println("An error occurred.");
             }
         }
     }//GEN-LAST:event_kayıtActionPerformed
+
+    private void robotCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_robotCheckActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_robotCheckActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,29 +363,29 @@ public class Kayıt extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Kayıt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Kayıt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Kayıt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Kayıt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Kayıt().setVisible(true);
+                new Register().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ad;
-    private javax.swing.JLabel adu;
     private javax.swing.JTextField email;
-    private javax.swing.JLabel emailu;
+    private javax.swing.JLabel emailWarning;
+    private javax.swing.JTextField firstName;
+    private javax.swing.JLabel firstNameWarning;
     private javax.swing.JButton geri;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -383,14 +393,14 @@ public class Kayıt extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JButton kayıt;
-    private javax.swing.JCheckBox kontrol;
     private java.awt.Label label2;
-    private javax.swing.JPasswordField sifre;
-    private javax.swing.JLabel sifreu;
-    private javax.swing.JTextField soyad;
-    private javax.swing.JLabel soyadu;
-    private javax.swing.JTextField tel;
-    private javax.swing.JLabel telu;
-    private javax.swing.JLabel uyari;
+    private javax.swing.JTextField lastName;
+    private javax.swing.JLabel lastNameWarning;
+    private javax.swing.JPasswordField password;
+    private javax.swing.JLabel passwordWarning;
+    private javax.swing.JTextField phone;
+    private javax.swing.JLabel phoneWarning;
+    private javax.swing.JCheckBox robotCheck;
+    private javax.swing.JLabel warning;
     // End of variables declaration//GEN-END:variables
 }

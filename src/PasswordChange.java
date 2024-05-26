@@ -8,26 +8,17 @@ import javax.swing.JOptionPane;
 import java.sql.*;
 
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+public class PasswordChange extends javax.swing.JFrame {
 
-/**
- *
- * @author talhayilmaz
- */
-public class SifreDegistir extends javax.swing.JFrame {
-
-     Giris giris = new Giris();
+     Login login = new Login();
      private Connection conn;
     
-    public SifreDegistir() {
+    public PasswordChange() {
         initComponents();
          try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/SporM?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "password");
         } catch (SQLException ex) {
-            Logger.getLogger(Giris.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PasswordChange.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -38,10 +29,10 @@ public class SifreDegistir extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        eskişifre = new javax.swing.JPasswordField();
-        yenişifre = new javax.swing.JPasswordField();
-        değiştri = new javax.swing.JButton();
-        geri = new javax.swing.JButton();
+        oldPassword = new javax.swing.JPasswordField();
+        newPassword = new javax.swing.JPasswordField();
+        Change = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
         label2 = new java.awt.Label();
         jLabel1 = new javax.swing.JLabel();
         mail = new javax.swing.JTextField();
@@ -52,24 +43,24 @@ public class SifreDegistir extends javax.swing.JFrame {
 
         jLabel3.setText("Yeni Şifre");
 
-        değiştri.setText("Değiştir");
-        değiştri.addActionListener(new java.awt.event.ActionListener() {
+        Change.setText("Değiştir");
+        Change.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                değiştriActionPerformed(evt);
+                ChangeActionPerformed(evt);
             }
         });
 
-        geri.setText("Geri");
-        geri.addActionListener(new java.awt.event.ActionListener() {
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                geriActionPerformed(evt);
+                backButtonActionPerformed(evt);
             }
         });
 
         label2.setBackground(new java.awt.Color(142, 142, 142));
         label2.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
         label2.setForeground(new java.awt.Color(200, 232, 101));
-        label2.setText("  Şifre Değiştir");
+        label2.setText("  Change Password");
 
         jLabel1.setText("E-mail:");
 
@@ -88,19 +79,19 @@ public class SifreDegistir extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(201, 201, 201)
-                        .addComponent(geri))
+                        .addComponent(backButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(yenişifre, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(newPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(eskişifre, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(oldPassword, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(mail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(39, 39, 39)
-                                .addComponent(değiştri, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(Change, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -116,50 +107,50 @@ public class SifreDegistir extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(12, 12, 12)
-                .addComponent(eskişifre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(oldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(yenişifre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(newPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(değiştri)
+                .addComponent(Change)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(geri)
+                .addComponent(backButton)
                 .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void değiştriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_değiştriActionPerformed
-        String email = mail.getText();
-        String eskiŞifre = eskişifre.getText();
-        String yeniŞifre = yenişifre.getText();
+    private void ChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeActionPerformed
+        String emailText = mail.getText();
+        String oldPasswordText = oldPassword.getText();
+        String newPasswordText = newPassword.getText();
         try {
             PreparedStatement ps = conn.prepareStatement("UPDATE KAYIT SET Parola = ? WHERE Email = ? AND Parola=?");
-            ps.setString(1, yeniŞifre);
-            ps.setString(2, email);
-            ps.setString(3, eskiŞifre);
+            ps.setString(1, newPasswordText);
+            ps.setString(2, emailText);
+            ps.setString(3, oldPasswordText);
             int rs  = ps.executeUpdate();
             System.out.println(rs);
             if (rs>= 1 ) {
                 this.setVisible(false);
-                giris.setVisible(true);
+                login.setVisible(true);
 
             } else {
-                JOptionPane.showMessageDialog(null, "Kayıtlı Kullanıcı Bulunamadı..", "Hata", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No user found..", "Error", JOptionPane.ERROR_MESSAGE);
 
             }
         } catch (SQLException ex) {
-            System.out.println("Şifre güncelleme işlemi sırasında bir hata oluştu.");
+            System.out.println("An error occurred while updating the password.");
         }
-    }//GEN-LAST:event_değiştriActionPerformed
+    }//GEN-LAST:event_ChangeActionPerformed
 
-    private void geriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geriActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
 
         this.setVisible(false);
-        giris.setVisible(true);
-    }//GEN-LAST:event_geriActionPerformed
+        login.setVisible(true);
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,33 +169,33 @@ public class SifreDegistir extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SifreDegistir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordChange.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SifreDegistir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordChange.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SifreDegistir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordChange.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SifreDegistir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordChange.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SifreDegistir().setVisible(true);
+                new PasswordChange().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton değiştri;
-    private javax.swing.JPasswordField eskişifre;
-    private javax.swing.JButton geri;
+    private javax.swing.JButton Change;
+    private javax.swing.JButton backButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private java.awt.Label label2;
     private javax.swing.JTextField mail;
-    private javax.swing.JPasswordField yenişifre;
+    private javax.swing.JPasswordField newPassword;
+    private javax.swing.JPasswordField oldPassword;
     // End of variables declaration//GEN-END:variables
 }

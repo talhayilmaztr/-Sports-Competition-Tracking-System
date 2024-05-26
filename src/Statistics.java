@@ -7,40 +7,39 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author talhayilmaz
  */
-public class Istatistikler extends javax.swing.JFrame {
+public class Statistics extends javax.swing.JFrame {
 
     FetchData data = new FetchData();
 
     Connection conn = null;
-    int[] puan = new int[100];
-    String[] takimlar = new String[100];
-    int[] macSayisi = new int[100];
-    int[] toplamGol = new int[1000];
-    int[] galibiyet = new int[100];
-    int[] maglubiyet = new int[100];
+    int[] points = new int[100];
+    String[] teams = new String[100];
+    int[] matchCount = new int[100];
+    int[] totalGoals = new int[1000];
+    int[] wins = new int[100];
+    int[] losses = new int[100];
 
-    public Istatistikler() {
+    public Statistics() {
         initComponents();
-         try {
+        try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/SporM?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "password");
         } catch (SQLException ex) {
-            Logger.getLogger(Istatistikler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
         }
         String selected = (String) jComboBox3.getSelectedItem();
-        data.ligler(selected, jList3, conn);
-        puan(selected);
+        data.leagues(selected, jList3, conn);
+        points(selected);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -71,7 +70,7 @@ public class Istatistikler extends javax.swing.JFrame {
         label2.setBackground(new java.awt.Color(142, 142, 142));
         label2.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
         label2.setForeground(new java.awt.Color(200, 232, 101));
-        label2.setText("  İstatistikler");
+        label2.setText("  Statistics");
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,13 +80,13 @@ public class Istatistikler extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "TAKIM", "OYNANAN MAÇ", "GALİBİYET", "MAĞLUBİYET", "GOLLER", "PUAN"
+                "Teams", "Matches Played", "Wins", "Losses", "Goals", "Points"
             }
         ));
         jScrollPane5.setViewportView(jTable3);
 
         jList3.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Galatasaray", "Fenerbahçe", "Trabzon", "Konya", "Beşiktaş" };
+            String[] strings = { "Liverpool", "Real Madrid", "Barcelona", "Turkey" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -99,7 +98,7 @@ public class Istatistikler extends javax.swing.JFrame {
         jScrollPane6.setViewportView(jList3);
 
         new javax.swing.DefaultComboBoxModel<>(new String[] { "Takım A", "Takım B", "Takım C" });
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Futbol", "Basketbol", "Voleybol", "Hentbol" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Football", "Basketbol", "Voleybol", "Hentbol" }));
         new javax.swing.DefaultComboBoxModel<>(new String[] { "Takım A", "Takım B", "Takım C" });
         jComboBox3.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -112,7 +111,7 @@ public class Istatistikler extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Ligler:");
+        jLabel1.setText("Leagues:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,14 +143,13 @@ public class Istatistikler extends javax.swing.JFrame {
                             .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addGap(124, 124, 124))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)))
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
         );
 
-        jMenu2.setText("Ana Sayfa");
+        jMenu2.setText("Main Page");
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jMenu2MousePressed(evt);
@@ -159,7 +157,7 @@ public class Istatistikler extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Müsabaka Admin");
+        jMenu3.setText("Match Admin");
 
         jMenuItem1.setText("Müsabaka Ekle");
         jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -199,13 +197,13 @@ public class Istatistikler extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu6.setText("Hakkında");
+        jMenu6.setText("About");
         jMenuBar1.add(jMenu6);
 
         jMenu4.setText("Yenile");
         jMenuBar1.add(jMenu4);
 
-        jMenu5.setText("Çıkış");
+        jMenu5.setText("Log out");
         jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu5MouseClicked(evt);
@@ -247,7 +245,6 @@ public class Istatistikler extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jList3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList3MousePressed
-        DefaultTableModel model =(DefaultTableModel)jTable3.getModel();
         String selectedSprt = (String) jComboBox3.getSelectedItem();
         String selectedLig = jList3.getSelectedValue();
         sorgulaa(selectedSprt, selectedLig, jTable3);
@@ -261,135 +258,136 @@ public class Istatistikler extends javax.swing.JFrame {
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         String selected = (String) jComboBox3.getSelectedItem();
         reset();
-        puan(selected);
-        data.ligler(selected, jList3, conn);
+        points(selected);
+        data.leagues(selected, jList3, conn);
+    }
+
+    public void reset() {
+        for (int i = 0; i < 100; i++) {
+            matchCount[i] = 0;
+            points[i] = 0;
+            totalGoals[i] = 0;
+            wins[i] = 0;
+            losses[i] = 0;
+            teams[i] = null;
         }
+    }
 
-        public void reset() {
-            for (int i = 0; i < 100; i++) {
-                macSayisi[i] = 0;
-                puan[i] = 0;
-                toplamGol[i] = 0;
-                galibiyet[i] = 0;
-                maglubiyet[i] = 0;
-                takimlar[i] = null;
-            }
-        }
+    public void points(String sprtName) {
+        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        model.setRowCount(0);
 
-        public void puan(String sprtName) {
-            DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
-            model.setRowCount(0);
+        PreparedStatement ps = null;
+        int k = 0;
 
-            PreparedStatement ps = null;
-            int k = 0;
+        try {
+            ps = conn.prepareStatement("SELECT * FROM " + sprtName.toUpperCase());
+            ResultSet rs = ps.executeQuery();
 
-            try {
-                ps = conn.prepareStatement("SELECT * FROM " + sprtName.toUpperCase());
-                ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String team = rs.getString("TEAMS");
+                String score = rs.getString("SCORE");
 
-                while (rs.next()) {
-                    String takımlar = rs.getString("TAKIMLAR");
-                    String skor = rs.getString("SKOR");
-                    String[] takimParcalari = takımlar.split("-");
-                    String[] skorParcalari = skor.split("-");
+                String[] teamParts = team.split("-");
+                String[] scoreParts = score.split("-");
 
-                    String takim1 = takimParcalari[0].trim();
-                    String takim2 = takimParcalari[1].trim();
-                    int golTakim1 = Integer.parseInt(skorParcalari[0].trim());
-                    int golTakim2 = Integer.parseInt(skorParcalari[1].trim());
+                String team1 = teamParts[0].trim();
+                String team2 = teamParts[1].trim();
+                int goalsTeam1 = Integer.parseInt(scoreParts[0].trim());
+                int goalsTeam2 = Integer.parseInt(scoreParts[1].trim());
 
-                    int takim1Index = findTakimIndex(takim1, takimlar);
-                    if (takim1Index == -1) {
-                        takim1Index = addTakim(takim1, takimlar);
-                    }
-                    macSayisi[takim1Index]++;
-                    toplamGol[takim1Index] += golTakim1;
-
-                    int takim2Index = findTakimIndex(takim2, takimlar);
-                    if (takim2Index == -1) {
-                        takim2Index = addTakim(takim2, takimlar);
-                    }
-                    macSayisi[takim2Index]++;
-                    toplamGol[takim2Index] += golTakim2;
-
-                    if (golTakim1 > golTakim2) {
-                        galibiyet[takim1Index]++;
-                        maglubiyet[takim2Index]++;
-                        puan[takim1Index] += 3;
-                    } else if (golTakim2 > golTakim1) {
-                        galibiyet[takim2Index]++;
-                        maglubiyet[takim1Index]++;
-                        puan[takim2Index] += 3;
-                    } else {
-                        puan[takim1Index]++;
-                        puan[takim2Index]++;
-                    }
+                int team1Index = findTeamIndex(team1, teams);
+                if (team1Index == -1) {
+                    team1Index = addTeam(team1, teams);
                 }
+                matchCount[team1Index]++;
+                totalGoals[team1Index] += goalsTeam1;
 
-                for (int i = 0; i < puan.length - 1; i++) {
-                    int maxIndex = i;
-                    for (int j = i + 1; j < puan.length; j++) {
-                        if (puan[j] > puan[maxIndex]) {
-                            maxIndex = j;
-                        }
-                    }
-
-                    if (maxIndex != i) {
-                        swap(puan, i, maxIndex);
-                        swap(takimlar, i, maxIndex);
-                        swap(macSayisi, i, maxIndex);
-                        swap(galibiyet, i, maxIndex);
-                        swap(maglubiyet, i, maxIndex);
-                        swap(toplamGol, i, maxIndex);
-                    }
+                int team2Index = findTeamIndex(team2, teams);
+                if (team2Index == -1) {
+                    team2Index = addTeam(team2, teams);
                 }
+                matchCount[team2Index]++;
+                totalGoals[team2Index] += goalsTeam2;
 
-                for (k = 0; k < takimlar.length && takimlar[k] != null; k++) {
-                    model.addRow(new Object[]{takimlar[k], macSayisi[k], galibiyet[k], maglubiyet[k], toplamGol[k], puan[k]});
-                }
-
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                Logger.getLogger(Istatistikler.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        private void swap(int[] array, int i, int j) {
-            int temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
-
-        private void swap(String[] array, int i, int j) {
-            String temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
-
-        public int findTakimIndex(String takim, String[] takimlar) {
-            for (int i = 0; i < takimlar.length && takimlar[i] != null; i++) {
-                if (takim.equals(takimlar[i])) {
-                    return i;
+                if (goalsTeam1 > goalsTeam2) {
+                    wins[team1Index]++;
+                    losses[team2Index]++;
+                    points[team1Index] += 3;
+                } else if (goalsTeam2 > goalsTeam1) {
+                    wins[team2Index]++;
+                    losses[team1Index]++;
+                    points[team2Index] += 3;
+                } else {
+                    points[team1Index]++;
+                    points[team2Index]++;
                 }
             }
-            return -1;
-        }
 
-        private int addTakim(String takim, String[] takimlar) {
-            for (int i = 0; i < takimlar.length; i++) {
-                if (takimlar[i] == null) {
-                    takimlar[i] = takim;
-                    return i;
+            for (int i = 0; i < points.length - 1; i++) {
+                int maxIndex = i;
+                for (int j = i + 1; j < points.length; j++) {
+                    if (points[j] > points[maxIndex]) {
+                        maxIndex = j;
+                    }
+                }
+
+                if (maxIndex != i) {
+                    swap(points, i, maxIndex);
+                    swap(teams, i, maxIndex);
+                    swap(matchCount, i, maxIndex);
+                    swap(wins, i, maxIndex);
+                    swap(losses, i, maxIndex);
+                    swap(totalGoals, i, maxIndex);
                 }
             }
-            return -1;
+
+            for (k = 0; k < teams.length && teams[k] != null; k++) {
+                model.addRow(new Object[]{teams[k], matchCount[k], wins[k], losses[k], totalGoals[k], points[k]});
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    private void swap(String[] array, int i, int j) {
+        String temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    public int findTeamIndex(String takim, String[] takimlar) {
+        for (int i = 0; i < takimlar.length && takimlar[i] != null; i++) {
+            if (takim.equals(takimlar[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int addTeam(String takim, String[] takimlar) {
+        for (int i = 0; i < takimlar.length; i++) {
+            if (takimlar[i] == null) {
+                takimlar[i] = takim;
+                return i;
+            }
+        }
+        return -1;
 
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void jMenu2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MousePressed
-        AnaSayfaa ans = new AnaSayfaa();
+        Main main = new Main();
         this.setVisible(false);
-        ans.setVisible(true);
+        main.setVisible(true);
     }//GEN-LAST:event_jMenu2MousePressed
 
     private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
@@ -397,9 +395,9 @@ public class Istatistikler extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1MouseClicked
 
     private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
-        MüsabakaAdminn müs = new MüsabakaAdminn();
+        MatchAdmin m = new MatchAdmin();
         this.setVisible(false);
-        müs.setVisible(true);
+        m.setVisible(true);
     }//GEN-LAST:event_jMenuItem1MousePressed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -412,18 +410,18 @@ public class Istatistikler extends javax.swing.JFrame {
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         this.setVisible(false);
-        Istatistikler is = new Istatistikler();
-        is.setVisible(true);
+        Statistics st = new Statistics();
+        st.setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
-        Giris giris = new Giris();
+        Login login = new Login();
 
-        int cevap = JOptionPane.showConfirmDialog(null, "Çıkış Yapmak istediğinize emin misiniz?", "ÇIKIŞ", JOptionPane.YES_NO_OPTION);
+        int cevap = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
 
         if (cevap == JOptionPane.YES_OPTION) {
             this.setVisible(false);
-            giris.setVisible(true);
+            login.setVisible(true);
         }
     }//GEN-LAST:event_jMenu5MouseClicked
 
@@ -431,50 +429,51 @@ public class Istatistikler extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenu5ActionPerformed
 
-        private void sorgulaa(String sportName, String ligg, JTable table) {
-      DefaultTableModel model = (DefaultTableModel) table.getModel();
-    model.setRowCount(0);
-    PreparedStatement ps = null;
-    ArrayList<String> addedTeams = new ArrayList<>(); 
+    private void sorgulaa(String sportName, String ligg, JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        PreparedStatement ps = null;
+        ArrayList<String> addedTeams = new ArrayList<>();
 
-    try {
-        String query = "SELECT * FROM " + sportName.toUpperCase();
-        ps = conn.prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
+        try {
+            String query = "SELECT * FROM " + sportName.toUpperCase();
+            ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
 
-        while (rs.next()) {
-            String takımlar = rs.getString("TAKIMLAR");
-            String lig = rs.getString("LİG");
+            while (rs.next()) {
+                String team = rs.getString("TAKIMLAR");
+                String league = rs.getString("LİGLER");
 
-            if (lig.toUpperCase().contains(ligg.toUpperCase())) {
+                if (league.toUpperCase().contains(league.toUpperCase())) {
 
-                String[] takimParcalari = takımlar.split("-");
-                String takim1 = takimParcalari[0].trim();
-                String takim2 = takimParcalari[1].trim();
+                    String[] teamParts = team.split("-");
+                    String team1 = teamParts[0].trim();
+                    String team2 = teamParts[1].trim();
 
-                
-                if (!addedTeams.contains(takim1)) { 
-                    int takim1Index = findTakimIndex(takim1, takimlar);
-                    if (takim1Index != -1) {
-                        model.addRow(new Object[]{takimlar[takim1Index], macSayisi[takim1Index], galibiyet[takim1Index], maglubiyet[takim1Index], toplamGol[takim1Index], puan[takim1Index]});
-                        addedTeams.add(takim1);
+                    if (!addedTeams.contains(team1)) {
+                        int team1Index = findTeamIndex(team1, teams);
+                        if (team1Index != -1) {
+                            model.addRow(new Object[]{teams[team1Index], matchCount[team1Index], wins[team1Index], losses[team1Index], totalGoals[team1Index], points[team1Index]});
+                            addedTeams.add(team1);
+                        }
                     }
-                }
 
-                if (!addedTeams.contains(takim2)) { 
-                    int takim2Index = findTakimIndex(takim2, takimlar);
-                    if (takim2Index != -1) {
-                        model.addRow(new Object[]{takimlar[takim2Index], macSayisi[takim2Index], galibiyet[takim2Index], maglubiyet[takim2Index], toplamGol[takim2Index], puan[takim2Index]});
-                        addedTeams.add(takim2);
+                    if (!addedTeams.contains(team2)) {
+                        int team2Index = findTeamIndex(team2, teams);
+                        if (team2Index != -1) {
+                            model.addRow(new Object[]{teams[team2Index], matchCount[team2Index], wins[team2Index], losses[team2Index], totalGoals[team2Index], points[team2Index]});
+                            addedTeams.add(team2);
+                        }
                     }
                 }
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-        Logger.getLogger(Istatistikler.class.getName()).log(Level.SEVERE, null, ex);
+
     }
-}
+
     /**
      * @param args the command line arguments
      */
@@ -492,20 +491,20 @@ public class Istatistikler extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Istatistikler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Statistics.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Istatistikler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Statistics.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Istatistikler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Statistics.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Istatistikler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Statistics.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Istatistikler().setVisible(true);
+                new Statistics().setVisible(true);
             }
         });
     }

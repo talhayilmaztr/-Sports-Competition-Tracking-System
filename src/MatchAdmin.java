@@ -24,16 +24,19 @@ import javax.swing.JTable;
  *
  * @author talhayilmaz
  */
-public class MüsabakaAdminn extends javax.swing.JFrame {
+public class MatchAdmin extends javax.swing.JFrame {
     FetchData data = new FetchData();
     private Connection conn;
-
-    public MüsabakaAdminn() {
+    Main main = new Main();
+    
+    String path = "path_file";
+    
+    public MatchAdmin() {
         initComponents();
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/SporM?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "password");
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(MüsabakaAdminn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MatchAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
@@ -43,7 +46,6 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
         data.fetchDataForSport(selectedItem, jTable1, conn);
         data.fetchDataForSport(selectedItem, jTable2, conn);
 
-    
     }
 
     /**
@@ -55,7 +57,7 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ekle = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         müsabakaSil = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -94,9 +96,9 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
         çıkış = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        exportAll = new javax.swing.JMenuItem();
+        exportSelected = new javax.swing.JMenuItem();
+        importFromFile = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -105,14 +107,13 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        ekle.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabbedPane.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ekleMouseClicked(evt);
+                tabbedPaneMouseClicked(evt);
             }
         });
 
@@ -153,7 +154,7 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
                 .addContainerGap(121, Short.MAX_VALUE))
         );
 
-        ekle.addTab("Sil", jPanel1);
+        tabbedPane.addTab("Sil", jPanel1);
 
         müsabakasec.setText("Müsabaka Seç");
         müsabakasec.addActionListener(new java.awt.event.ActionListener() {
@@ -256,7 +257,7 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
                 .addGap(32, 32, 32))
         );
 
-        ekle.addTab("Düzenle", jPanel2);
+        tabbedPane.addTab("Düzenle", jPanel2);
 
         jLabel6.setText("Ad");
 
@@ -349,7 +350,7 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
                     .addContainerGap(209, Short.MAX_VALUE)))
         );
 
-        ekle.addTab("Ekle", jPanel3);
+        tabbedPane.addTab("Ekle", jPanel3);
 
         label1.setBackground(new java.awt.Color(142, 142, 142));
         label1.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
@@ -372,41 +373,46 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jMenuItem10.setText("Hepsini Dosyaya Aktar");
-        jMenu1.add(jMenuItem10);
-
-        jMenuItem8.setText("Seçili Satırı Dosyaya Aktar");
-        jMenuItem8.addMouseListener(new java.awt.event.MouseAdapter() {
+        exportAll.setText("Export All");
+        exportAll.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenuItem8MousePressed(evt);
+                exportAllMousePressed(evt);
             }
         });
-        jMenu1.add(jMenuItem8);
-
-        jMenuItem9.setText("Dosyadan Aktar");
-        jMenuItem9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenuItem9MousePressed(evt);
-            }
-        });
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        exportAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                exportAllActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem9);
+        jMenu1.add(exportAll);
+
+        exportSelected.setText("Export Selected");
+        exportSelected.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                exportSelectedMousePressed(evt);
+            }
+        });
+        jMenu1.add(exportSelected);
+
+        importFromFile.setText("Import From File");
+        importFromFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                importFromFileMousePressed(evt);
+            }
+        });
+        importFromFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importFromFileActionPerformed(evt);
+            }
+        });
+        jMenu1.add(importFromFile);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Ana Sayfa");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenu2MousePressed(evt);
-            }
-        });
+        jMenu2.setText("Main Page");
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Müsabaka Admin");
+        jMenu3.setText("Match Admin");
 
         jMenuItem1.setText("Müsabaka Ekle");
         jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -415,6 +421,11 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jMenuItem1MousePressed(evt);
+            }
+        });
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
             }
         });
         jMenu3.add(jMenuItem1);
@@ -433,11 +444,6 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
         jMenu3.add(jMenuItem2);
 
         jMenuItem3.setText("Müsabaka Düzenle");
-        jMenuItem3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenuItem3MousePressed(evt);
-            }
-        });
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -456,18 +462,10 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu6.setText("Hakkında");
+        jMenu6.setText("About");
         jMenuBar1.add(jMenu6);
 
-        jMenu4.setText("Yenile");
-        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenu4MousePressed(evt);
-            }
-        });
-        jMenuBar1.add(jMenu4);
-
-        jMenu5.setText("Çıkış");
+        jMenu5.setText("Log out");
         jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu5MouseClicked(evt);
@@ -487,11 +485,10 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(ekle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(çıkış))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(label1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -504,7 +501,7 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ekle, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(çıkış)
                 .addGap(73, 73, 73))
@@ -518,10 +515,10 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
         int cevap = 0;
         int x = 0;
         if (row == -1) {
-            JOptionPane.showMessageDialog(null, "Lütfen silmek istediğiniz satırı seçin.");
+            JOptionPane.showMessageDialog(null, "Please select the row you want to delete.");
             x = 1;
         } else {
-            cevap = JOptionPane.showConfirmDialog(null, "Müsabakayı silmek istediğinize emin misiniz?", "Müsabaka Silme", JOptionPane.YES_NO_OPTION);
+            cevap = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the match ?", "Delete Match", JOptionPane.YES_NO_OPTION);
 
         }
 
@@ -536,11 +533,11 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
                     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                     model.removeRow(row);
                 } else {
-                    System.out.println("Sorgudan etkilenen satır yok.");
+                    System.out.println("No rows affected by the query.");
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(MüsabakaAdminn.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("Veritabanına erişilemedi veya sorgu hatalı: " + ex.getMessage());
+                Logger.getLogger(MatchAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Failed to access the database or query error: " + ex.getMessage());
             }
         }
 
@@ -549,7 +546,7 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
     private void müsabakasecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_müsabakasecActionPerformed
         int currentRow = jTable2.getSelectedRow();
         if (currentRow ==-1) {
-            JOptionPane.showMessageDialog(null, "Lütfen düzenlemek istediğiniz satırı seçin.");
+            JOptionPane.showMessageDialog(null, "Please select the row you want to edit.");
 
         }
         else{
@@ -575,7 +572,7 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
             int selectedRow = jTable2.getSelectedRow();
 
             if (selectedRow == -1) {
-                JOptionPane.showMessageDialog(null, "Lütfen düzenlemek istediğiniz satırı seçin.");
+                JOptionPane.showMessageDialog(null, "Please select the row you want to edit.");
             }
             String eskiTakımlar = (String) jTable2.getValueAt(selectedRow, 0);
 
@@ -589,12 +586,12 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
             String skorRegex = "^[0-9.-]*$";
 
             if (!tarih.matches(tarihRegex)) {
-                JOptionPane.showMessageDialog(null, "Geçersiz tarih formatı. Sadece '-', '.' ve rakamlar kullanılabilir.");
+                JOptionPane.showMessageDialog(null, "Invalid date format. Only '-', '.', and numbers are allowed.");
                 return;
             }
 
             if (!skor.matches(skorRegex)) {
-                JOptionPane.showMessageDialog(null, "Geçersiz skor formatı. Sadece '-', '.' ve rakamlar kullanılabilir.");
+                JOptionPane.showMessageDialog(null, "Invalid score format. Only '-', '.', and numbers are allowed.");
                 return;
             }
             PreparedStatement ps = conn.prepareStatement("UPDATE FUTBOL SET TAKIMLAR=?, YER=?, LIG=?, TARIH=?, SKOR=? WHERE TAKIMLAR=?");
@@ -620,12 +617,12 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
                 jTextField4.setText("");
                 jTextField5.setText("");
 
-                JOptionPane.showMessageDialog(null, "Müsabaka Düzenlendi.");
+                JOptionPane.showMessageDialog(null, "Match edited.");
             } else {
-                JOptionPane.showMessageDialog(null, "Müsabaka düzenlenirken bir hata oluştu.");
+                JOptionPane.showMessageDialog(null, "An error occurred while editing the match.");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(MüsabakaAdminn.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MatchAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_müsabakaDüzenActionPerformed
 
@@ -644,12 +641,12 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
             String skorRegex = "^[0-9.-]*$";
 
             if (!tarih.matches(tarihRegex)) {
-                JOptionPane.showMessageDialog(null, "Geçersiz tarih formatı. Örnek format: 2024-01-28");
+                JOptionPane.showMessageDialog(null, "Invalid date format. Example format: 2024-01-28");
                 return;
             }
 
             if (!skor.matches(skorRegex)) {
-                JOptionPane.showMessageDialog(null, "Geçersiz skor formatı. Örnek format: 3-2");
+                JOptionPane.showMessageDialog(null, "Invalid score format. Example format: 3-2");
                 return;
             }
 
@@ -662,20 +659,20 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
 
             int result = ps.executeUpdate();
             if (result > 0) {
-                System.out.println("Veri eklendi.");
+                System.out.println("Data added.");
                 model.addRow(new String[]{takimlar, yer, lig, tarih, skor});
             } else {
-                System.out.println("Veri eklenirken bir hata oluştu.");
+                System.out.println("An error occurred while adding data.");
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(MüsabakaAdminn.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MatchAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_müsabakaEkleActionPerformed
 
-    private void ekleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ekleMouseClicked
+    private void tabbedPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabbedPaneMouseClicked
 
-    }//GEN-LAST:event_ekleMouseClicked
+    }//GEN-LAST:event_tabbedPaneMouseClicked
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
@@ -687,37 +684,70 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void çıkışActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_çıkışActionPerformed
-        Giris giris = new Giris();
+        Login login = new Login();
 
-        int cevap = JOptionPane.showConfirmDialog(null, "Çıkış Yapmak istediğinize emin misiniz?", "ÇIKIŞ", JOptionPane.YES_NO_OPTION);
+        int cevap = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
 
         if (cevap == JOptionPane.YES_OPTION) {
             this.setVisible(false);
-            giris.setVisible(true);
+            login.setVisible(true);
         }
     }//GEN-LAST:event_çıkışActionPerformed
 
-    private void jMenuItem8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem8MousePressed
-   
-    }//GEN-LAST:event_jMenuItem8MousePressed
-
-    private void jMenuItem9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem9MousePressed
-    
+    private void exportAllMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportAllMousePressed
         
-    }//GEN-LAST:event_jMenuItem9MousePressed
+        if (jTable1.isShowing()) {
+            main.printAllToFile(jTable1, path);
+        }
+        if (jTable2.isShowing()) {
+            main.printAllToFile(jTable2, path);
+        }
+        if (jTable4.isShowing()) {
+            main.printAllToFile(jTable4, path);
+        }
+       
+    }//GEN-LAST:event_exportAllMousePressed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    private void exportAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportAllActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exportAllActionPerformed
+
+    private void exportSelectedMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportSelectedMousePressed
+
+        main.printToFile(jTable1, path);
+    }//GEN-LAST:event_exportSelectedMousePressed
+
+    private void importFromFileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_importFromFileMousePressed
+        int selectedIndex = tabbedPane.getSelectedIndex();
+        String selectedTabName = tabbedPane.getTitleAt(selectedIndex);
+
+        main.readFile(selectedTabName, path);
+    }//GEN-LAST:event_importFromFileMousePressed
+
+    private void importFromFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importFromFileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_importFromFileActionPerformed
 
     private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
 
     }//GEN-LAST:event_jMenuItem1MouseClicked
 
     private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
-        MüsabakaAdminn müs = new MüsabakaAdminn();
+        MatchAdmin m = new MatchAdmin();
         this.setVisible(false);
-        müs.setVisible(true);
+        m.setVisible(true);
     }//GEN-LAST:event_jMenuItem1MousePressed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MousePressed
+
+        MatchAdmin m = new MatchAdmin();
+        this.setVisible(false);
+        m.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2MousePressed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
@@ -729,49 +759,25 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         this.setVisible(false);
-        Istatistikler is = new Istatistikler();
-        is.setVisible(true);
+        Statistics st = new Statistics();
+        st.setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
-    private void jMenu4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MousePressed
-        yenile( jTable4,jComboBox1);
-        yenile( jTable1,jComboBox1);
-        yenile( jTable2,jComboBox1);
-    }//GEN-LAST:event_jMenu4MousePressed
-
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
-        Giris giris = new Giris();
+        Login login = new Login();
 
-        int cevap = JOptionPane.showConfirmDialog(null, "Çıkış Yapmak istediğinize emin misiniz?", "ÇIKIŞ", JOptionPane.YES_NO_OPTION);
+        int cevap = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
 
         if (cevap == JOptionPane.YES_OPTION) {
             this.setVisible(false);
-            giris.setVisible(true);
+            login.setVisible(true);
         }
     }//GEN-LAST:event_jMenu5MouseClicked
 
     private void jMenu5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu5ActionPerformed
 
     }//GEN-LAST:event_jMenu5ActionPerformed
-
-    private void jMenu2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MousePressed
-            AnaSayfaa ans = new AnaSayfaa();
-            this.setVisible(false);
-            ans.setVisible(true);
-    }//GEN-LAST:event_jMenu2MousePressed
-
-    private void jMenuItem2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MousePressed
-            MüsabakaAdminn müs = new MüsabakaAdminn();
-            this.setVisible(false);
-            müs.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2MousePressed
-
-    private void jMenuItem3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem3MousePressed
-            MüsabakaAdminn müs = new MüsabakaAdminn();
-            this.setVisible(false);
-            müs.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3MousePressed
-    public void yenile(JTable table,JComboBox combo){
+    public void refresh(JTable table,JComboBox combo){
           DefaultTableModel model = (DefaultTableModel) table.getModel();
           String selectedItem = (String) combo.getSelectedItem();
           model.setRowCount(0);
@@ -797,26 +803,28 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MüsabakaAdminn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MatchAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MüsabakaAdminn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MatchAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MüsabakaAdminn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MatchAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MüsabakaAdminn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MatchAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MüsabakaAdminn().setVisible(true);
+                new MatchAdmin().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane ekle;
+    private javax.swing.JMenuItem exportAll;
+    private javax.swing.JMenuItem exportSelected;
+    private javax.swing.JMenuItem importFromFile;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -831,17 +839,13 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -867,6 +871,7 @@ public class MüsabakaAdminn extends javax.swing.JFrame {
     private javax.swing.JButton müsabakaEkle;
     private javax.swing.JButton müsabakaSil;
     private javax.swing.JButton müsabakasec;
+    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JButton çıkış;
     // End of variables declaration//GEN-END:variables
 }
